@@ -90,23 +90,6 @@ export const signupUser = (credentials) => {
   return dispatch => {
     dispatch(requestSignup(credentials))
     return fetch('http://localhost:3000/signup', config)
-    // need to finish this
-  }
-}
-
-export const loginUser = (credentials) => {
-  const config = {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(credentials)
-  }
-
-  return dispatch => {
-    dispatch(requestLogin(credentials))
-    return fetch('http://localhost:3000/login', config)
       .then(res => res.json().then(user => ({
         headers: res.headers,
         status: res.status,
@@ -115,12 +98,55 @@ export const loginUser = (credentials) => {
     ))
     .then(({headers, status, user}) => {
       if (status >= 400) {
-        dispatch(loginError(user.message))
+        dispatch(signupError(user.message))
       } else {
         localStorage.setItem('token', headers['Authorization'].split(' ')[1])
-        dispatch(receiveLogin(user))
+        dispatch(receiveSignup(user))
       }
-    }).catch(err => console.log("Error: ", err))
+    }).catch(err => console.log("Errors: ", err))
+  }
+}
+
+export const loginUser = (credentials) => {
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify(credentials)
+  }
+
+  return dispatch => {
+    dispatch(requestLogin(credentials))
+    return fetch(`http://localhost:3000/login`, config)
+    .then(res => {
+      if (!res.ok) {
+        throw res
+      } else {
+        localStorage.setItem('token', res.headers['Authorization'].split(' ')[1])
+        res.json()
+      }
+    })
+    .then(user => dispatch(receiveLogin(user)))
+    // dispatch(requestLogin(credentials))
+    // return fetch('http://localhost:3000/login', config)
+    //   .then(res => res.json().then(user => ({
+    //     headers: res.headers,
+    //     status: res.status,
+    //     user,
+    //     res
+    //   })
+    // ))
+    // .then(({headers, status, user, res}) => {
+    //   if (status >= 400) {
+    //     console.log(res)
+    //     dispatch(loginError(user.message))
+    //   } else {
+    //     localStorage.setItem('token', headers['Authorization'].split(' ')[1])
+    //     dispatch(receiveLogin(user))
+    //   }
+    // }).catch(err => console.log("Error: ", err))
   }
 }
 

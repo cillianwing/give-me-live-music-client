@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { updateLoginForm } from '../actions/loginForm'
+import { updateLoginForm } from '../actions/authForm'
 import { loginUser } from '../actions/auth'
 
 const Login = (props) => {
@@ -15,7 +15,7 @@ const Login = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    loginUser(props.loginFormData)
+    props.loginUser(props.loginFormData)
   }
 
   return (
