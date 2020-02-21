@@ -91,15 +91,12 @@ export const signupUser = (credentials) => {
     dispatch(requestSignup(credentials))
     return fetch('http://localhost:3000/signup', config)
       .then(res => res.json())
-      .then(user => ({user, res}))
-      .then(({user, res}) => {
-        if (!res.ok) {
-          dispatch(signupError(user.message))
-          return Promise.reject(user)
-        } else {
-          localStorage.setItem('token', res.headers['Authorization'].split(' ')[1])
-          dispatch(receiveSignup(user))
-        }
+      .then(user => {
+        // if (user.message) {
+        //   dispatch(signupError(user.message))
+        // }
+        // localStorage.setItem("token", token)
+        dispatch(receiveSignup(user))
       }).catch(err => console.log("Error: ", err))
   }
 }
@@ -117,16 +114,13 @@ export const loginUser = (credentials) => {
   return dispatch => {
     dispatch(requestLogin(credentials))
     return fetch('http://localhost:3000/login', config)
-      .then(res => res.json()
-      .then(user => ({user, res})))
-      .then(({user, res}) => {
-        if (!res.ok) {
-          dispatch(loginError(user.message))
-          return Promise.reject(user)
-        } else {
-          localStorage.setItem("token", res.headers['Authorization'].split(' ')[1])
-          dispatch(receiveLogin(user))
-        }
+      .then(res => res.json())
+      .then(user => {
+        // if (user.message) {
+        //   dispatch(loginError(user.message))
+        // }
+        // localStorage.setItem("token", token)
+        dispatch(receiveLogin(user))
       }).catch(err => console.log("Error: ", err))
   }
 }
