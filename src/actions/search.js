@@ -46,13 +46,13 @@ export const getConcerts = (credentials) => {
     within: within,
   }
   const config = {
-    method: 'GET',
+    method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     },
-    body: JSON.stringify(searchData)
+    body: JSON.stringify({search: searchData})
   }
   return dispatch => {
     dispatch(requestConcerts(credentials))
