@@ -2,10 +2,8 @@ import { UPDATE_SEARCH_FORM, RESET_SEARCH_FORM } from '../actions/searchForm';
 
 const initialState = {
   location: '',
-  radius: '',
-  startDate: '',
-  endDate: '',
-  venue: ''
+  within: '',
+  date: '',
 }
 
 export const searchForm = (state = initialState, action) => {
