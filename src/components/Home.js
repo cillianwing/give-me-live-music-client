@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import TopNav from './TopNav';
-import { concertsButton, venuesButton } from './HomeButtonLoggedIn';
-import HomeButtonLoggedOut from './HomeButtonLoggedOut';
+import TopNav from './nav/TopNav';
+import { concertsButton, venuesButton } from './input/HomeButtonLoggedIn';
+import HomeButtonLoggedOut from './input/HomeButtonLoggedOut';
 import { Container, Card, Button, CardDeck } from 'react-bootstrap';
 import concertImg from '../images/concert1.jpg'
 import venueImg from '../images/venue1.jpg'

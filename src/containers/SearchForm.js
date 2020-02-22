@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Input from '../components/Input';
-import SelectDates from '../components/SelectDates';
+import Input from '../components/input/Input';
+import SelectDates from '../components/input/SelectDates';
 import { updateSearchForm } from '../actions/searchForm';
 import { getConcerts } from '../actions/search';
 
