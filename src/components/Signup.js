@@ -15,13 +15,13 @@ const Signup = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    props.signupUser(props.signupFormData)
+    props.signupUser({user: props.signupFormData})
   }
 
   return(
     <div>
       <form onSubmit={handleSubmit}>
-			  <input type="text" placeholder="Email" name="email" value={props.signupFormData.email} onChange={handleInputChange} />
+			  <input type="email" placeholder="Email" name="email" value={props.signupFormData.email} onChange={handleInputChange} />
 			  <input type="password" placeholder="Password" name="password" value={props.signupFormData.password} onChange={handleInputChange} />
 			  <input type="text" placeholder="First Name" name="first_name" value={props.signupFormData.first_name} onChange={handleInputChange} />
         <input type="text" placeholder="Last Name" name="last_name" value={props.signupFormData.last_name} onChange={handleInputChange} />

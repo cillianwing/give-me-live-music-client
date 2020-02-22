@@ -15,13 +15,13 @@ const Login = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    props.loginUser(props.loginFormData)
+    props.loginUser({user: props.loginFormData})
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-		    <input type="text" placeholder="Email" name="email" value={props.loginFormData.email} onChange={handleInputChange} />
+		    <input type="email" placeholder="Email" name="email" value={props.loginFormData.email} onChange={handleInputChange} />
         <input type="password" placeholder="Password" name="password" value={props.loginFormData.password} onChange={handleInputChange} />
 		    <input type="submit" value="Log In" />
 		  </form>
