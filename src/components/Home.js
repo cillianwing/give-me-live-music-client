@@ -1,5 +1,7 @@
 import React from 'react'
-import { Container, Navbar, Nav, NavDropdown, Card, Button, CardDeck } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import TopNav from './TopNav';
+import { Container, Card, Button, CardDeck } from 'react-bootstrap';
 import concertImg from '../images/concert1.jpg'
 import venueImg from '../images/venue1.jpg'
 import { Link } from 'react-router-dom'
@@ -8,30 +10,7 @@ import { MDBIcon } from 'mdbreact'
 const Home = (props) => {
   return (
     <Container>
-      <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
-        <Navbar.Brand href="/"><MDBIcon icon="guitar" /> Concert time!</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ml-auto">
-            <NavDropdown title={<MDBIcon icon="music" />} alignRight id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#">Upcoming Concerts</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#">My Concerts</NavDropdown.Item>
-            </NavDropdown>  
-            <NavDropdown title={<MDBIcon icon="warehouse" />} alignRight id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#">All Venues</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#">My Venues</NavDropdown.Item>
-            </NavDropdown>  
-            <NavDropdown title={<MDBIcon far icon="user-circle" />} alignRight id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#">Profile</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#">Logout</NavDropdown.Item>
-            </NavDropdown>            
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-
+      <TopNav loggedIn={props.loggedIn} />
       <CardDeck>
         <Card className="text-center mt-5">
           <Card.Img style={{ height: "60%" }} variant="top" src={concertImg} />
@@ -60,4 +39,10 @@ const Home = (props) => {
   )
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+  return {
+    loggedIn: state.auth.isAuthenticated
+  }
+}
+
+export default connect(mapStateToProps, null)(Home);
