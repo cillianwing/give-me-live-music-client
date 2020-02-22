@@ -35,7 +35,7 @@ const SearchForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    props.getConcerts({search: props.searchFormData})
+    props.getConcerts(props.searchFormData)
   }
 
   return (

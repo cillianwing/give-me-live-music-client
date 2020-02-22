@@ -13,7 +13,7 @@ function App(props) {
         <Switch>
           {/* {props.auth.isAuthenticated ? props.logoutUser() && <Signup /> : <Signup />} */}
           {/* <Login /> */}
-          <Route exact path to='/concerts/search' component={SearchForm} />
+          <Route exact to='/concerts/search' component={SearchForm} />
           {/* all Route components listed here */}
         </Switch>
       </Router>

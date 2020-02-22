@@ -2,7 +2,8 @@ import { CONCERTS_REQUEST, CONCERTS_SUCCESS, CONCERTS_FAILURE } from '../actions
 
 const initialState = {
   isLoading: false,
-  isPulled: false
+  isPulled: false,
+  concerts: []
 }
 
 export const search = (state = initialState, action) => {
@@ -19,7 +20,7 @@ export const search = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isPulled: true,
-        // concerts
+        concerts: action.concerts
       }
     case CONCERTS_FAILURE:
       return {
