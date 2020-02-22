@@ -48,7 +48,7 @@ const receiveLogin = (user) => {
     type: LOGIN_SUCCESS,
     isLoading: false,
     isAuthenticated: true,
-    token: user.token
+    user
   }
 }
 

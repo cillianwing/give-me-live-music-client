@@ -28,3 +28,7 @@ const concertsError = (message) => {
     message
   }
 }
+
+export const getConcerts = (credentials) => {
+  
+}

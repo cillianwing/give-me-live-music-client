@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import Input from '../components/Input';
 import SelectDates from '../components/SelectDates';
 import SubmitButton from '../components/SubmitButton';
-import { searchForm } from '../actions/searchForm';
+import { updateSearchForm } from '../actions/searchForm';
+import { getConcerts } from '../actions/search';
 
 const SearchForm = (props) => {
   // const [startDate, setStartDate] = useState(new Date())
@@ -35,4 +36,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { })(SearchForm);
+export default connect(mapStateToProps, { updateSearchForm, getConcerts })(SearchForm);
