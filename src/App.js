@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './components/Login'
 import Signup from './components/Signup'
-import SearchForm from './containers/SearchForm';
+import Home from './components/Home'
+import UpcomingConcerts from './containers/UpcomingConcerts'
 import { logoutUser } from './actions/auth'
 
 function App(props) {
@@ -13,8 +14,14 @@ function App(props) {
         <Switch>
           {/* {props.auth.isAuthenticated ? props.logoutUser() && <Signup /> : <Signup />} */}
           {/* <Login /> */}
-          <Route exact to='/concerts/search' component={SearchForm} />
-          {/* all Route components listed here */}
+          <Route exact path='/' component={Home} />
+          <Route path='/login' component={Login} />
+          <Route path='/signup' component={Signup} />
+          {/* <Route path='/users/:id' component={UserProfile} /> */}
+          {/* <Route path='users/:id/concerts' component={UserConcerts} /> */}
+          <Route path='/concerts/search' component={UpcomingConcerts} />
+          {/* <Route path='/venues' component={Venues} /> */}
+          {/* <Route path='users/:id/venues' component={UserVenues} /> */}
         </Switch>
       </Router>
     </div>
