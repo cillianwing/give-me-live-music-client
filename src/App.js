@@ -17,11 +17,11 @@ function App(props) {
           <Route exact path='/' component={Home} />
           <Route path='/login' component={Login} />
           <Route path='/signup' component={Signup} />
-          {/* <Route path='/users/:id' component={UserProfile} /> */}
-          {/* <Route path='users/:id/concerts' component={UserConcerts} /> */}
+          {/* <Route path='/user/profile' component={UserProfile} /> */}
+          {/* <Route path='user/concerts' component={UserConcerts} /> */}
           <Route path='/concerts/search' component={UpcomingConcerts} />
           {/* <Route path='/venues' component={Venues} /> */}
-          {/* <Route path='users/:id/venues' component={UserVenues} /> */}
+          {/* <Route path='user/venues' component={UserVenues} /> */}
         </Switch>
       </Router>
     </div>
