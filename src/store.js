@@ -3,12 +3,16 @@ import thunk from 'redux-thunk';
 // import all reducers to be created here
 import { auth } from './reducers/auth';
 import { loginForm, signupForm} from './reducers/authForm';
+import { search } from './reducers/search';
+import { searchForm } from './reducers/searchForm'
 
 const reducer = combineReducers({
   // all reducers to be combined
   auth,
   loginForm,
-  signupForm
+  signupForm,
+  searchForm,
+  search
 })
 
 // to enable redux extension in browser

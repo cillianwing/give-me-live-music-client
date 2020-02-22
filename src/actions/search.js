@@ -11,12 +11,12 @@ const requestConcerts = (credentials) => {
   }
 }
 
-const receiveConcerts = (concerts) => {
+const receiveConcerts = () => {
   return {
     type: CONCERTS_SUCCESS,
     isLoading: false,
     isPulled: true,
-    concerts
+    // need to add concerts here and as argument once its available
   }
 }
 
@@ -30,5 +30,5 @@ const concertsError = (message) => {
 }
 
 export const getConcerts = (credentials) => {
-  
+
 }

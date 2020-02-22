@@ -19,7 +19,7 @@ export const search = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isPulled: true,
-        concerts
+        // concerts
       }
     case CONCERTS_FAILURE:
       return {
@@ -28,5 +28,7 @@ export const search = (state = initialState, action) => {
         isPulled: false,
         errorMessage: action.message
       }
+    default: 
+      return state
   }
 }
