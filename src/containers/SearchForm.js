@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
 import { connect } from 'react-redux';
-import addDays from 'date-fns/addDays'
-import "react-datepicker/dist/react-datepicker.css";
+import Input from '../components/Input';
+import SelectDates from '../components/SelectDates';
+import SubmitButton from '../components/SubmitButton';
+import { searchForm } from '../actions/searchForm';
 
 const SearchForm = (props) => {
-  const [startDate, setStartDate] = useState(new Date())
-  const [endDate, setEndDate] = useState(addDays(new Date(), 7))
+  // const [startDate, setStartDate] = useState(new Date())
+  // const [endDate, setEndDate] = useState(addDays(new Date(), 7))
 
   return (
     <>
-      <DatePicker 
+      
+      {/* <DatePicker 
         selected={startDate} 
         onChange={date => setStartDate(date)}
         selectsStart
@@ -22,9 +24,15 @@ const SearchForm = (props) => {
         selectsEnd
         startDate={startDate}
         endDate={endDate}
-        minDate={startDate} />
+        minDate={startDate} /> */}
     </>
   )
 }
 
-export default SearchForm;
+const mapStateToProps = (state) => {
+  return {
+    searchFormData: state.searchForm
+  }
+}
+
+export default connect(mapStateToProps, { })(SearchForm);

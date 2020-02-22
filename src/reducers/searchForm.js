@@ -3,7 +3,8 @@ import { UPDATE_SEARCH_FORM, RESET_SEARCH_FORM } from '../actions/searchForm';
 const initialState = {
   location: '',
   within: '',
-  date: '',
+  startDate: '',
+  endDate: ''
 }
 
 export const searchForm = (state = initialState, action) => {
