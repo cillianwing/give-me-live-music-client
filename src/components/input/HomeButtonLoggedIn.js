@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 export const concertsButton = (props) => {
   return (
     <>
-      <Button as={Link} to="/concerts/search" style={{ width: "40%" }} className="mr-3" variant="primary">Search Concerts</Button>
+      <Button as={Link} to="/concerts/upcoming" style={{ width: "40%" }} className="mr-3" variant="primary">Search Concerts</Button>
       <Button as={Link} to="/user/concerts" style={{ width: "40%" }} className="ml-3" variant="primary">My Concerts</Button>
     </>
   )

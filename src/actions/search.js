@@ -1,3 +1,5 @@
+import { resetSearchForm } from './searchForm'
+
 export const CONCERTS_REQUEST = 'CONCERTS_REQUEST'
 export const CONCERTS_SUCCESS = 'CONCERTS_SUCCESS'
 export const CONCERTS_FAILURE = 'CONCERTS_FAILURE'
@@ -67,6 +69,7 @@ export const getConcerts = (credentials) => {
         dispatch(concertsError(concerts.message))
       } else {
         dispatch(receiveConcerts(concerts))
+        dispatch(resetSearchForm())
       }
     }).catch(err => console.log("Errors: ", err))
   }

@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import TopNav from './nav/TopNav';
 import { concertsButton, venuesButton } from './input/HomeButtonLoggedIn';
 import HomeButtonLoggedOut from './input/HomeButtonLoggedOut';
-import { Container, Card, Button, CardDeck } from 'react-bootstrap';
+import { Container, Card, CardDeck } from 'react-bootstrap';
 import concertImg from '../images/concert1.jpg'
 import venueImg from '../images/venue1.jpg'
-import { Link } from 'react-router-dom'
 import { MDBIcon } from 'mdbreact'
 
 const Home = (props) => {

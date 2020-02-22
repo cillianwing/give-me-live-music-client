@@ -19,7 +19,7 @@ function App(props) {
           <Route path='/signup' component={Signup} />
           {/* <Route path='/user/profile' component={UserProfile} /> */}
           {/* <Route path='user/concerts' component={UserConcerts} /> */}
-          <Route path='/concerts/search' component={UpcomingConcerts} />
+          <Route path='/concerts/upcoming' component={UpcomingConcerts} />
           {/* <Route path='/venues' component={Venues} /> */}
           {/* <Route path='user/venues' component={UserVenues} /> */}
         </Switch>
