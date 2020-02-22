@@ -40,7 +40,7 @@ export const getConcerts = (credentials) => {
   const endMonth = endDate.getMonth() <= 11 ? "0" + (endDate.getMonth() + 1) : 1
   const startDay = "0" + startDate.getDate()
   const endDay = "0" + endDate.getDate()
-  const dateString = `${startDate.getFullYear()}${startMonth.slice(-2)}${startDay.slice(-2)}-${endDate.getFullYear()}${endMonth.slice(-2)}${endDay.slice(-2)}`
+  const dateString = `${startDate.getFullYear()}${startMonth.slice(-2)}${startDay.slice(-2)}00-${endDate.getFullYear()}${endMonth.slice(-2)}${endDay.slice(-2)}00`
   
   const searchData = {
     location: location,

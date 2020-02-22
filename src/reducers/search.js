@@ -20,7 +20,7 @@ export const search = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isPulled: true,
-        concerts: action.concerts
+        concerts: [...state.concerts, action.concerts]
       }
     case CONCERTS_FAILURE:
       return {
