@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import TopNav from './TopNav';
+import { concertsButton, venuesButton } from './HomeButtonLoggedIn';
+import HomeButtonLoggedOut from './HomeButtonLoggedOut';
 import { Container, Card, Button, CardDeck } from 'react-bootstrap';
 import concertImg from '../images/concert1.jpg'
 import venueImg from '../images/venue1.jpg'
@@ -19,8 +21,7 @@ const Home = (props) => {
             <Card.Text>
               Search for upcoming concerts in your area and add ones you're interested in to your calendar!
             </Card.Text>
-            <Button as={Link} to="/concerts/search" style={{ width: "200px" }} className="mr-3" variant="primary">Search Concerts</Button>
-            <Button as={Link} to="/user/concerts" style={{ width: "200px" }} className="ml-3" variant="primary">My Concerts</Button>
+              {props.loggedIn ? concertsButton() : <HomeButtonLoggedOut />}
           </Card.Body>
         </Card>      
         <Card className="text-center mt-5">
@@ -30,8 +31,7 @@ const Home = (props) => {
             <Card.Text>
               Find and follow your favorite concert venues to ensure you never miss a show again!
             </Card.Text>
-            <Button as={Link} to="/venues" style={{ width: "200px" }} className="mr-3" variant="primary">Search Venues</Button>
-            <Button as={Link} to="/user/venues" style={{ width: "200px" }} className="ml-3" variant="primary">My Venues</Button>
+            {props.loggedIn ? venuesButton() : <HomeButtonLoggedOut />}
           </Card.Body>
         </Card>
       </CardDeck>
