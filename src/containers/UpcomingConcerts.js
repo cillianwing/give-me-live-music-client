@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import SearchForm from './SearchForm';
 import TopNav from '../components/nav/TopNav';
@@ -8,6 +8,11 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import BasicButton from '../components/input/BasicButton';
 
 const UpcomingConcerts = (props) => {
+  const [modalShow, setModalShow] = useState(false)
+
+  useEffect(() => {
+    return props.isLoading ? setModalShow(true) : setModalShow(false)
+  })
 
   const handleNextClick = (event) => {
     event.preventDefault()
@@ -22,7 +27,7 @@ const UpcomingConcerts = (props) => {
     <Container>
       <TopNav loggedIn={props.loggedIn} />
       <SearchForm />
-      {props.isLoading ? <LoadingSpinner /> : '' }
+      <LoadingSpinner show={modalShow} />
       <ButtonToolbar className="justify-content-center">
         <ButtonGroup style={{width: "10%"}}>
           {props.page > 1 ? <BasicButton size="sm" handleClick={handlePreviousClick} variant="primary" value="Previous" /> : props.page === 1 && props.isPulled ? <BasicButton size="sm" disabled="disabled" variant="primary" value="Previous" /> : ''}
