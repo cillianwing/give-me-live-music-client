@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import SearchForm from './SearchForm';
 import TopNav from '../components/nav/TopNav';
-import { Container, Card, CardDeck } from 'react-bootstrap';
+import { getConcerts } from '../actions/search';
+import { Container, Card, CardDeck, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
 import LoadingSpinner from '../components/LoadingSpinner';
 import BasicButton from '../components/input/BasicButton';
 
@@ -10,7 +11,11 @@ const UpcomingConcerts = (props) => {
 
   const handleNextClick = (event) => {
     event.preventDefault()
+    props.getConcerts(props.searchFormData, props.page + 1)
+  }
 
+  const handlePreviousClick = (event) => {
+    event.preventDefault()
   }
 
   return (
@@ -18,18 +23,27 @@ const UpcomingConcerts = (props) => {
       <TopNav loggedIn={props.loggedIn} />
       <SearchForm />
       {props.isLoading ? <LoadingSpinner /> : '' }
-      {props.pages > props.page ? <div class="col text-center"><BasicButton size="sm" handleClick={handleNextClick} variant="primary" value="Next" /></div> : ''}
+      <ButtonToolbar className="justify-content-center">
+        <ButtonGroup style={{width: "10%"}}>
+          {props.page > 1 ? <BasicButton size="sm" handleClick={handlePreviousClick} variant="primary" value="Previous" /> : props.page === 1 && props.isPulled ? <BasicButton size="sm" disabled="disabled" variant="primary" value="Previous" /> : ''}
+        </ButtonGroup>
+        <ButtonGroup style={{width: "10%"}}>
+          {props.pages > props.page ? <BasicButton size="sm" handleClick={handleNextClick} variant="primary" value="Next" /> : ''}
+        </ButtonGroup>
+      </ButtonToolbar>
     </Container>
   )
 }
 
 const mapStateToProps = (state) => {
   return {
+    searchFormData: state.searchForm,
     loggedIn: state.auth.isAuthenticated,
     isLoading: state.search.isLoading,
+    isPulled: state.search.isPulled,
     page: state.search.page,
     pages: state.search.pages
   }
 }
 
-export default connect(mapStateToProps, null)(UpcomingConcerts);
+export default connect(mapStateToProps, { getConcerts })(UpcomingConcerts);
