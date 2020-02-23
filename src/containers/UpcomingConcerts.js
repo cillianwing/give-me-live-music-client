@@ -6,6 +6,7 @@ import { getConcerts } from '../actions/search';
 import { Container, Card, CardDeck, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
 import LoadingSpinner from '../components/LoadingSpinner';
 import BasicButton from '../components/input/BasicButton';
+import Concert from '../components/Concert';
 
 const UpcomingConcerts = (props) => {
   const [modalShow, setModalShow] = useState(false)
@@ -23,6 +24,34 @@ const UpcomingConcerts = (props) => {
     event.preventDefault()
   }
 
+  const concertCards = () => {
+    const concertsArr = props.concerts.map(concert => (
+      <Concert key={concert.id}
+        imgUrl={concert.image} 
+        title={concert.title} 
+        date={concert.start_time.split(' ')[0]} 
+        time={concert.start_time.split(' ')[1]} 
+        venueName={concert.venue_name}
+        city={concert.city_name}
+        state={concert.region_name}
+        country={concert.country_abbr}
+        url={concert.url}
+        />
+      )
+    )
+    const arr = []
+    while (concertsArr.length > 0) {
+      arr.push(concertsArr.splice(0, 3))
+    }
+    return arr
+  }
+
+  const allConcerts = concertCards().map((concertGroup, index) => (
+    <CardDeck className="my-2" key={index}>
+      {concertGroup}
+    </CardDeck>
+  ))
+
   return (
     <Container>
       <TopNav loggedIn={props.loggedIn} />
@@ -36,6 +65,7 @@ const UpcomingConcerts = (props) => {
           {props.pages > props.page ? <BasicButton size="sm" handleClick={handleNextClick} variant="primary" value="Next" /> : ''}
         </ButtonGroup>
       </ButtonToolbar>
+      {allConcerts}
     </Container>
   )
 }
@@ -47,7 +77,8 @@ const mapStateToProps = (state) => {
     isLoading: state.search.isLoading,
     isPulled: state.search.isPulled,
     page: state.search.page,
-    pages: state.search.pages
+    pages: state.search.pages,
+    concerts: state.search.concerts
   }
 }
 

@@ -12,10 +12,10 @@ const LoadingSpinner = (props) => {
       >
         <Modal.Body>
           <Row className="justify-content-md-center">
-            <Col md="auto">
+            <Col className="mt-2" md="auto">
               <Spinner animation="border" variant="info" />
             </Col>
-            <Col className="mt-2" md="auto">
+            <Col className="mt-2 mb-0" md="auto">
               <p>Loading your concerts search!</p>
             </Col>
           </Row>

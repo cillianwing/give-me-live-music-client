@@ -21,7 +21,7 @@ export const search = (state = initialState, action) => {
       return {
         isLoading: false,
         isPulled: true,
-        concerts: [...state.concerts, action.concerts.events.event],
+        concerts: action.concerts.events.event,
         page: parseInt(action.concerts.page_number),
         pages: parseInt(action.concerts.page_count)
       }
