@@ -1,4 +1,4 @@
-import { resetSearchForm } from './searchForm'
+import { resetSearchForm } from './searchForm';
 
 export const CONCERTS_REQUEST = 'CONCERTS_REQUEST'
 export const CONCERTS_SUCCESS = 'CONCERTS_SUCCESS'
@@ -7,8 +7,6 @@ export const CONCERTS_FAILURE = 'CONCERTS_FAILURE'
 const requestConcerts = (credentials) => {
   return {
     type: CONCERTS_REQUEST,
-    isLoading: true,
-    isPulled: false,
     credentials
   }
 }
@@ -16,8 +14,6 @@ const requestConcerts = (credentials) => {
 const receiveConcerts = (concerts) => {
   return {
     type: CONCERTS_SUCCESS,
-    isLoading: false,
-    isPulled: true,
     concerts
   }
 }
@@ -25,13 +21,11 @@ const receiveConcerts = (concerts) => {
 const concertsError = (message) => {
   return {
     type: CONCERTS_FAILURE,
-    isLoading: false,
-    isPulled: false,
     message
   }
 }
 
-export const getConcerts = (credentials) => {
+export const getConcerts = (credentials, page) => {
   const location = !!credentials.location ? credentials.location : ''
   const startDate =  !!credentials.startDate ? credentials.startDate : ''
   const endDate = !!credentials.endDate ? credentials.endDate : ''
@@ -41,11 +35,13 @@ export const getConcerts = (credentials) => {
   const startDay = "0" + startDate.getDate()
   const endDay = "0" + endDate.getDate()
   const dateString = `${startDate.getFullYear()}${startMonth.slice(-2)}${startDay.slice(-2)}00-${endDate.getFullYear()}${endMonth.slice(-2)}${endDay.slice(-2)}00`
+  const pageString = `${page}`
   
   const searchData = {
     location: location,
     date: dateString,
     within: within,
+    page_number: pageString
   }
   const config = {
     method: 'POST',
@@ -69,9 +65,7 @@ export const getConcerts = (credentials) => {
         dispatch(concertsError(concerts.message))
       } else {
         dispatch(receiveConcerts(concerts))
-        dispatch(resetSearchForm())
       }
     }).catch(err => console.log("Errors: ", err))
   }
-
 }

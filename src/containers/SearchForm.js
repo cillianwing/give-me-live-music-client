@@ -35,7 +35,7 @@ const SearchForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    props.getConcerts(props.searchFormData)
+    props.getConcerts(props.searchFormData, props.page)
   }
 
   return (
@@ -50,7 +50,9 @@ const SearchForm = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    searchFormData: state.searchForm
+    searchFormData: state.searchForm,
+    page: state.search.page,
+    pages: state.search.pages
   }
 }
 

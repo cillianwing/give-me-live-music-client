@@ -3,6 +3,8 @@ import { CONCERTS_REQUEST, CONCERTS_SUCCESS, CONCERTS_FAILURE } from '../actions
 const initialState = {
   isLoading: false,
   isPulled: false,
+  page: 1,
+  pages: 100,
   concerts: []
 }
 
@@ -17,10 +19,11 @@ export const search = (state = initialState, action) => {
       }
     case CONCERTS_SUCCESS:
       return {
-        ...state,
         isLoading: false,
         isPulled: true,
-        concerts: [...state.concerts, action.concerts]
+        concerts: [...state.concerts, action.concerts.events.event],
+        page: parseInt(action.concerts.page_number),
+        pages: parseInt(action.concerts.page_count)
       }
     case CONCERTS_FAILURE:
       return {
