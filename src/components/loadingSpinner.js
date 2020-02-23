@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row, Col, Spinner } from 'react-bootstrap';
 
-const loadingSpinner = (props) => {
+const LoadingSpinner = (props) => {
   return (
     <>
       <Row className="justify-content-md-center">
@@ -13,4 +13,4 @@ const loadingSpinner = (props) => {
   )
 }
 
-export default loadingSpinner;
+export default LoadingSpinner;

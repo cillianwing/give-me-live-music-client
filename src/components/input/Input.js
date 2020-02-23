@@ -9,6 +9,7 @@ const Input = (props) => {
         name={props.name}
         type={props.type}
         value={props.value}
+        onClick={props.handleClick}
         onChange={props.handleChange}
         placeholder={props.placeholder} 
       />

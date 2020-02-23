@@ -4,7 +4,7 @@ const initialState = {
   isLoading: false,
   isPulled: false,
   page: 1,
-  pages: 100,
+  pages: null,
   concerts: []
 }
 
