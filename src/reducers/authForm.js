@@ -8,10 +8,11 @@ const initialLoginState = {
 const initialSignupState = {
   email: '',
   password: '',
+  password_confirmation: '',
   first_name: '',
   last_name: '',
   location: '',
-  biography: ''
+  about: ''
 }
 
 export const loginForm = (state = initialLoginState, action) => {

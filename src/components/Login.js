@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { updateLoginForm } from '../actions/authForm'
-import { loginUser } from '../actions/auth'
+import { loginUser } from '../actions/currentUser'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -59,9 +59,10 @@ const Login = (props) => {
     props.updateLoginForm(updatedFormInfo)
   }
 
-  const handleSubmit = (event) => {
+  async function handleSubmit(event) {
     event.preventDefault()
-    props.loginUser({user: props.loginFormData})
+    await props.loginUser({user: props.loginFormData})
+    props.history.push('/')
   }
 
   return (
@@ -110,7 +111,7 @@ const Login = (props) => {
           >
             Login
           </Button>
-          <Grid container>
+          <Grid container justify="flex-end">
             <Grid item>
               <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}

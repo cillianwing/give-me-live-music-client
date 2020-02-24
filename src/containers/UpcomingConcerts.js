@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import SearchForm from './SearchForm';
-import TopNav from '../components/nav/TopNav';
 import { getConcerts } from '../actions/search';
-import { Container, Card, CardDeck, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
+import { logoutUser } from '../actions/currentUser';
+import { CardDeck, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
 import LoadingSpinner from '../components/LoadingSpinner';
 import BasicButton from '../components/input/BasicButton';
 import Concert from '../components/Concert';
+import TopNav from '../components/nav/TopNav';
 
 const UpcomingConcerts = (props) => {
   const [modalShow, setModalShow] = useState(false)
@@ -22,6 +23,12 @@ const UpcomingConcerts = (props) => {
 
   const handlePreviousClick = (event) => {
     event.preventDefault()
+    props.getConcerts(props.searchFormData, props.page - 1)
+  }
+
+  const handleLogout = (event) => {
+    event.preventDefault()
+    props.logoutUser()
   }
 
   const concertCards = () => {
@@ -53,20 +60,20 @@ const UpcomingConcerts = (props) => {
   ))
 
   return (
-    <Container>
-      <TopNav loggedIn={props.loggedIn} />
-      <SearchForm />
-      <LoadingSpinner show={modalShow} />
-      <ButtonToolbar className="justify-content-center">
-        <ButtonGroup style={{width: "10%"}}>
-          {props.page > 1 ? <BasicButton size="sm" handleClick={handlePreviousClick} variant="primary" value="Previous" /> : props.page === 1 && props.isPulled ? <BasicButton size="sm" disabled="disabled" variant="primary" value="Previous" /> : ''}
-        </ButtonGroup>
-        <ButtonGroup style={{width: "10%"}}>
-          {props.pages > props.page ? <BasicButton size="sm" handleClick={handleNextClick} variant="primary" value="Next" /> : ''}
-        </ButtonGroup>
-      </ButtonToolbar>
-      {allConcerts}
-    </Container>
+    <>
+    <TopNav loggedIn={props.loggedIn} handleLogout={handleLogout} />
+    <SearchForm />
+    <LoadingSpinner show={modalShow} />
+    <ButtonToolbar className="justify-content-center">
+      <ButtonGroup style={{width: "10%"}}>
+        {props.page > 1 ? <BasicButton size="sm" handleClick={handlePreviousClick} variant="primary" value="Previous" /> : props.page === 1 && props.isPulled ? <BasicButton size="sm" disabled="disabled" variant="primary" value="Previous" /> : ''}
+      </ButtonGroup>
+      <ButtonGroup style={{width: "10%"}}>
+        {props.pages > props.page ? <BasicButton size="sm" handleClick={handleNextClick} variant="primary" value="Next" /> : ''}
+      </ButtonGroup>
+    </ButtonToolbar>
+    {allConcerts}
+    </>
   )
 }
 
@@ -82,4 +89,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { getConcerts })(UpcomingConcerts);
+export default connect(mapStateToProps, { getConcerts, logoutUser })(UpcomingConcerts);

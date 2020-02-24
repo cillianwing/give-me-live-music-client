@@ -18,7 +18,7 @@ const TopNav = (props) => {
     <MDBNavbarToggler onClick={toggleCollapse} />
     <MDBCollapse id="navbarCollapse3" isOpen={open} navbar>
       <MDBNavbarNav right>
-        {props.loggedIn ? <TopNavLoggedIn /> : <TopNavLoggedOut />}
+        {props.loggedIn ? <TopNavLoggedIn handleLogout={props.handleLogout} /> : <TopNavLoggedOut />}
       </MDBNavbarNav>
     </MDBCollapse>
   </MDBNavbar>

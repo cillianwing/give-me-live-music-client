@@ -10,7 +10,7 @@ const TopNavLoggedIn = (props) => {
       </MDBNavLink>
     </MDBNavItem>
     <MDBNavItem>
-      <MDBNavLink className="waves-effect waves-light" to="/logout">
+      <MDBNavLink className="waves-effect waves-light" to="/" onClick={props.handleLogout} >
         Logout
       </MDBNavLink>
     </MDBNavItem>   

@@ -1,14 +1,14 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 // import all reducers to be created here
-import { auth } from './reducers/auth';
+import { currentUser } from './reducers/currentUser';
 import { loginForm, signupForm} from './reducers/authForm';
 import { search } from './reducers/search';
 import { searchForm } from './reducers/searchForm'
 
 const reducer = combineReducers({
   // all reducers to be combined
-  auth,
+  currentUser,
   loginForm,
   signupForm,
   searchForm,

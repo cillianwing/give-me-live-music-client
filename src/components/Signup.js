@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { updateSignupForm } from '../actions/authForm'
-import { signupUser } from '../actions/auth'
+import { signupUser } from '../actions/currentUser'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -59,9 +59,10 @@ const Signup = (props) => {
     props.updateSignupForm(updatedFormInfo)
   }
 
-  const handleSubmit = (event) => {
+  async function handleSubmit(event) {
     event.preventDefault()
-    props.signupUser({user: props.signupFormData})
+    await props.signupUser({user: props.signupFormData})
+    props.history.push('/')
   }
 
   return(
@@ -137,6 +138,20 @@ const Signup = (props) => {
                 variant="outlined"
                 required
                 fullWidth
+                name="password_confirmation"
+                label="Confirm Password"
+                type="password"
+                id="password_confirmation"
+                value={props.signupFormData.password_confirmation}
+                autoComplete="current-password"
+                onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
                 value={props.signupFormData.location}
                 id="location"
                 label="Location"
@@ -152,10 +167,10 @@ const Signup = (props) => {
                 multiline
                 rows="3"
                 value={props.signupFormData.biography}
-                id="biography"
+                id="about"
                 label="About Me"
-                name="biography"
-                autoComplete="biography"
+                name="about"
+                autoComplete="about"
                 onChange={handleInputChange}
               />
             </Grid>

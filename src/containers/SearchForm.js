@@ -4,7 +4,6 @@ import Input from '../components/input/Input';
 import SelectDates from '../components/input/SelectDates';
 import { updateSearchForm, resetSearchForm } from '../actions/searchForm';
 import { getConcerts } from '../actions/search';
-import BasicButton from '../components/input/BasicButton';
 
 const SearchForm = (props) => {
   const { location, within, startDate, endDate } = props.searchFormData

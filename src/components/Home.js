@@ -1,17 +1,24 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import TopNav from './nav/TopNav';
+import TopNav from '../components/nav/TopNav';
 import { concertsButton, venuesButton } from './input/HomeButtonLoggedIn';
 import HomeButtonLoggedOut from './input/HomeButtonLoggedOut';
-import { Container, Card, CardDeck } from 'react-bootstrap';
+import { logoutUser } from '../actions/currentUser';
+import { Card, CardDeck } from 'react-bootstrap';
 import concertImg from '../images/concert1.jpg'
 import venueImg from '../images/venue1.jpg'
 import { MDBIcon } from 'mdbreact'
 
 const Home = (props) => {
+
+  const handleLogout = (event) => {
+    event.preventDefault()
+    props.logoutUser()
+  }
+
   return (
-    <Container>
-      <TopNav loggedIn={props.loggedIn} />
+    <>
+      <TopNav loggedIn={props.loggedIn} handleLogout={handleLogout} />
       <CardDeck>
         <Card className="text-center mt-5">
           <Card.Img style={{ height: "60%" }} variant="top" src={concertImg} />
@@ -34,14 +41,14 @@ const Home = (props) => {
           </Card.Body>
         </Card>
       </CardDeck>
-    </Container>
+    </>
   )
 }
 
 const mapStateToProps = (state) => {
   return {
-    loggedIn: state.auth.isAuthenticated
+    loggedIn: state.currentUser.isAuthenticated
   }
 }
 
-export default connect(mapStateToProps, null)(Home);
+export default connect(mapStateToProps, { logoutUser })(Home);

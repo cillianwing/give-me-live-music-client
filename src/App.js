@@ -1,27 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Home from './components/Home'
 import UpcomingConcerts from './containers/UpcomingConcerts'
-import { logoutUser } from './actions/auth'
+import TopNav from './components/nav/TopNav'
+import { getCurrentUser, logoutUser } from './actions/currentUser'
+import { Container } from 'react-bootstrap'
 
 function App(props) {
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (token) {
+      props.getCurrentUser()
+    }
+  }, [])
+
   return (
     <div className="App">
       <Router>
         <Switch>
-          {/* {props.auth.isAuthenticated ? props.logoutUser() && <Signup /> : <Signup />} */}
-          {/* <Login /> */}
-          <Route exact path='/' component={Home} />
-          <Route path='/login' component={Login} />
-          <Route path='/signup' component={Signup} />
-          {/* <Route path='/user/profile' component={UserProfile} /> */}
-          {/* <Route path='user/concerts' component={UserConcerts} /> */}
-          <Route path='/concerts/upcoming' component={UpcomingConcerts} />
-          {/* <Route path='/venues' component={Venues} /> */}
-          {/* <Route path='user/venues' component={UserVenues} /> */}
+          <Container>
+            <Route exact path='/' component={Home} />
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/signup' component={Signup} />
+            {/* <Route path='/user/profile' component={UserProfile} /> */}
+            {/* <Route path='user/concerts' component={UserConcerts} /> */}
+            <Route path='/concerts/upcoming' component={UpcomingConcerts} />
+            {/* <Route path='/venues' component={Venues} /> */}
+            {/* <Route path='user/venues' component={UserVenues} /> */}
+          </Container>
         </Switch>
       </Router>
     </div>
@@ -30,8 +40,8 @@ function App(props) {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth
+    loggedIn: state.currentUser.isAuthenticated
   }
 }
 
-export default connect(mapStateToProps, { logoutUser })(App);
+export default connect(mapStateToProps, { getCurrentUser, logoutUser })(App);
