@@ -80,7 +80,7 @@ const UpcomingConcerts = (props) => {
 const mapStateToProps = (state) => {
   return {
     searchFormData: state.searchForm,
-    loggedIn: state.auth.isAuthenticated,
+    loggedIn: state.currentUser.isAuthenticated,
     isLoading: state.search.isLoading,
     isPulled: state.search.isPulled,
     page: state.search.page,
