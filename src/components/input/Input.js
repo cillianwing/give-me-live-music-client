@@ -5,6 +5,7 @@ const Input = (props) => {
     <>
       <label htmlFor={props.name}>{props.title}</label>
       <input
+        className={props.className}
         id={props.name}
         name={props.name}
         type={props.type}
