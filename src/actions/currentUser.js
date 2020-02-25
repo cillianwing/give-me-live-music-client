@@ -8,6 +8,7 @@ export const SIGNUP_FAIL = 'SIGNUP_FAIL'
 export const REQUEST_LOGOUT = 'REQUEST_LOGOUT'
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export const CLEAR_CURRENT_USER = 'CLEAR_CURRENT_USER'
+export const CLEAR_ERROR_MESSAGE = 'CLEAR_ERROR_MESSAGE'
 
 export const requestLogin = (credentials) => {
   return {
@@ -25,7 +26,7 @@ export const setCurrentUser = user => {
 
 export const loginError = (message) => {
   return {
-    type: LOGIN_FAIL,
+		type: LOGIN_FAIL,
     message
   }
 }
@@ -39,7 +40,7 @@ export const requestSignup = (credentials) => {
 
 export const signupError = (message) => {
   return {
-    type: SIGNUP_FAIL,
+		type: SIGNUP_FAIL,
     message
   }
 }
@@ -56,6 +57,12 @@ export const clearCurrentUser = () => {
 	}
 }
 
+export const clearErrorMessage = () => {
+	return dispatch => {
+		return dispatch({type: CLEAR_ERROR_MESSAGE})
+	}
+}
+
 export const loginUser = (credentials) => {
 	return dispatch => {
     dispatch(requestLogin(credentials))
@@ -69,14 +76,19 @@ export const loginUser = (credentials) => {
 		})
 		.then(res => {
       if (!res.ok) {
-        throw res
+				throw res
       }
       return res.json()
-    })
+		})
 		.then(data => {
-			localStorage.setItem("token", data.jwt)
-			dispatch(setCurrentUser(data.user))
-			dispatch(resetLoginForm())
+			if (data.success) {
+				localStorage.setItem("token", data.jwt)
+				dispatch(setCurrentUser(data.user))
+				dispatch(resetLoginForm())
+			} else {
+				dispatch(resetLoginForm())
+				dispatch(loginError(data.failure))
+			}
 		}).catch(err => console.log("Error: ", err))
 	}
 }
@@ -99,9 +111,15 @@ export const signupUser = (credentials) => {
       return res.json()
     })
 		.then(data => {
-			localStorage.setItem("token", data.jwt)
-			dispatch(setCurrentUser(data.user))
-			dispatch(resetSignupForm())
+			if (data.success) {
+				localStorage.setItem("token", data.jwt)
+				dispatch(setCurrentUser(data.user))
+				dispatch(resetSignupForm())
+			} else {
+				dispatch(resetSignupForm())
+				dispatch(signupError(data.failure))
+			}
+
 		}).catch(err => console.log("Error: ", err))
 	}
 }

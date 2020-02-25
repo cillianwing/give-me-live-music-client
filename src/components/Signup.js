@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
 import { updateSignupForm } from '../actions/authForm'
-import { signupUser } from '../actions/currentUser'
+import { signupUser, clearErrorMessage } from '../actions/currentUser'
+import { Alert } from 'react-bootstrap';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -18,9 +19,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Give Me Live Music!
-      </Link>{' '}
+        Give Me Live Music!{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -50,6 +49,13 @@ const useStyles = makeStyles(theme => ({
 const Signup = (props) => {
   const classes = useStyles();
 
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token !== '') {
+      props.history.push('/')
+    }
+  })
+
   const handleInputChange = (event) => {
     const { name, value } = event.target
     const updatedFormInfo = {
@@ -59,17 +65,22 @@ const Signup = (props) => {
     props.updateSignupForm(updatedFormInfo)
   }
 
-  async function handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault()
-    await props.signupUser({user: props.signupFormData})
-    props.history.push('/')
+    props.signupUser({user: props.signupFormData})
+  }
+
+  const errorAlerts = () => {
+    const uniqErrors = [...new Set(props.errorMessage)].join(', ')
+    const errorsArr = <Alert style={{ marginTop: 5 }} variant='danger'>{uniqErrors}.</Alert>
+    return errorsArr
   }
 
   return(
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Link href="/">
+        <Link to="/" >
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
@@ -77,6 +88,7 @@ const Signup = (props) => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
+        { props.errorMessage ? errorAlerts() : '' }
         <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -186,7 +198,7 @@ const Signup = (props) => {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/login" variant="body2">
+              <Link to="/login" variant="body2" onClick={() => props.clearErrorMessage() }>
                 Already have an account? Login
               </Link>
             </Grid>
@@ -202,8 +214,10 @@ const Signup = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    signupFormData: state.signupForm
+    signupFormData: state.signupForm,
+    loggedIn: state.currentUser.isAuthenticated,
+    errorMessage: state.currentUser.errorMessage
   }
 }
 
-export default connect(mapStateToProps, { updateSignupForm, signupUser })(Signup);
+export default connect(mapStateToProps, { updateSignupForm, signupUser, clearErrorMessage })(Signup);

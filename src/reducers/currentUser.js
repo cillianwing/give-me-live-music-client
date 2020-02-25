@@ -1,4 +1,4 @@
-import { REQUEST_LOGIN, LOGIN_FAIL, REQUEST_SIGNUP, SIGNUP_FAIL, REQUEST_LOGOUT, SET_CURRENT_USER, CLEAR_CURRENT_USER } from '../actions/currentUser';
+import { REQUEST_LOGIN, LOGIN_FAIL, REQUEST_SIGNUP, SIGNUP_FAIL, REQUEST_LOGOUT, SET_CURRENT_USER, CLEAR_CURRENT_USER, CLEAR_ERROR_MESSAGE } from '../actions/currentUser';
 
 const initialState = {
   isLoading: false,
@@ -17,6 +17,7 @@ export const currentUser = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        isAuthenticated: false,
         errorMessage: action.message
       }
     case REQUEST_SIGNUP:
@@ -28,6 +29,7 @@ export const currentUser = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        isAuthenticated: false,
         errorMessage: action.message
       }
     case REQUEST_LOGOUT:
@@ -48,6 +50,11 @@ export const currentUser = (state = initialState, action) => {
         isLoading: false,
         isAuthenticated: false,
         user: null
+      }
+    case CLEAR_ERROR_MESSAGE:
+      return {
+        ...state,
+        errorMessage: ''
       }
 		default:
 			return state

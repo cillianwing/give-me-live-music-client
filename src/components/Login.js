@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
 import { updateLoginForm } from '../actions/authForm'
-import { loginUser } from '../actions/currentUser'
+import { loginUser, clearErrorMessage } from '../actions/currentUser'
+import { Alert } from 'react-bootstrap';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -18,9 +19,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Give Me Live Music!
-      </Link>{' '}
+        Give Me Live Music!{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -50,6 +49,13 @@ const useStyles = makeStyles(theme => ({
 const Login = (props) => {
   const classes = useStyles();
 
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token !== '') {
+      props.history.push('/')
+    }
+  })
+
   const handleInputChange = (event) => {
     const { name, value } = event.target
     const updatedFormInfo = {
@@ -59,17 +65,16 @@ const Login = (props) => {
     props.updateLoginForm(updatedFormInfo)
   }
 
-  async function handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault()
-    await props.loginUser({user: props.loginFormData})
-    props.history.push('/')
+    props.loginUser({user: props.loginFormData})
   }
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Link href="/">
+        <Link to="/">
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
@@ -77,6 +82,7 @@ const Login = (props) => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+        { props.errorMessage ? <Alert style={{ marginTop: 15 }} variant='danger'>{props.errorMessage}</Alert> : '' }
         <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <TextField
             variant="outlined"
@@ -88,6 +94,7 @@ const Login = (props) => {
             name="email"
             autoComplete="email"
             autoFocus
+            value={props.loginFormData.email}
             onChange={handleInputChange}
           />
           <TextField
@@ -100,6 +107,7 @@ const Login = (props) => {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={props.loginFormData.password}
             onChange={handleInputChange}
           />
           <Button
@@ -113,7 +121,7 @@ const Login = (props) => {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/signup" variant="body2">
+              <Link to="/signup" variant="body2" onClick={() => props.clearErrorMessage() } >
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
@@ -129,8 +137,10 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    loginFormData: state.loginForm
+    loginFormData: state.loginForm,
+    loggedIn: state.currentUser.isAuthenticated,
+    errorMessage: state.currentUser.errorMessage
   }
 }
 
-export default connect(mapStateToProps, { updateLoginForm, loginUser })(Login)
+export default connect(mapStateToProps, { updateLoginForm, loginUser, clearErrorMessage })(Login)
