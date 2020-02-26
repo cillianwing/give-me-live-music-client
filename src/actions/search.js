@@ -26,23 +26,27 @@ const concertsError = (message) => {
 }
 
 export const getConcerts = (credentials, page) => {
-  const location = !!credentials.location ? credentials.location : ''
+  const city = !!credentials.city ? credentials.city : ''
+  const region = !!credentials.region ? credentials.region : ''
   const startDate =  !!credentials.startDate ? credentials.startDate : ''
   const endDate = !!credentials.endDate ? credentials.endDate : ''
-  const within = !!credentials.within ? credentials.within : ''
   const startMonth = startDate.getMonth() <= 11 ? "0" + (startDate.getMonth() + 1) : 1
   const endMonth = endDate.getMonth() <= 11 ? "0" + (endDate.getMonth() + 1) : 1
   const startDay = "0" + startDate.getDate()
   const endDay = "0" + endDate.getDate()
-  const dateString = `${startDate.getFullYear()}${startMonth.slice(-2)}${startDay.slice(-2)}00-${endDate.getFullYear()}${endMonth.slice(-2)}${endDay.slice(-2)}00`
+  const startString = `${startDate.getFullYear()}${startMonth.slice(-2)}${startDay.slice(-2)}`
+  const endString = `${endDate.getFullYear()}${endMonth.slice(-2)}${endDay.slice(-2)}`
   const pageString = `${page}`
   
   const searchData = {
-    location: location,
-    date: dateString,
-    within: within,
-    page_number: pageString
+    city: city,
+    state: region,
+    min_date: startString,
+    max_date: endString,
+    page: pageString
   }
+  
+  debugger
   const config = {
     method: 'POST',
     headers: {
