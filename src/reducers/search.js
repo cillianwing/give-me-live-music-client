@@ -22,7 +22,7 @@ export const search = (state = initialState, action) => {
       return {
         isLoading: false,
         isPulled: true,
-        concerts: action.concerts.event,
+        concerts: action.concerts.results.event,
         page: action.concerts.page,
         pages: (action.concerts.totalEntries / action.concerts.perPage)
       }
