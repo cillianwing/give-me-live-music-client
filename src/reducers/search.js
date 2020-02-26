@@ -15,6 +15,7 @@ export const search = (state = initialState, action) => {
         ...state,
         isLoading: true,
         isPulled: false,
+        page: action.page, 
         search: action.credentials
       }
     case CONCERTS_SUCCESS:
@@ -22,8 +23,8 @@ export const search = (state = initialState, action) => {
         isLoading: false,
         isPulled: true,
         concerts: action.concerts.event,
-        page: parseInt(action.concerts.page_number),
-        pages: parseInt(action.concerts.page_count)
+        page: action.concerts.page,
+        pages: (action.concerts.totalEntries / action.concerts.perPage)
       }
     case CONCERTS_FAILURE:
       return {

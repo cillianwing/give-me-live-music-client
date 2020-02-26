@@ -50,7 +50,7 @@ const SearchForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    props.getConcerts(props.searchFormData, props.page)
+    props.getConcerts(props.searchFormData, 1)
   }
 
   const handleResetClick = (event) => {

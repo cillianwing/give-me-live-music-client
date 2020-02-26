@@ -43,14 +43,13 @@ export const getConcerts = (credentials, page) => {
   const endDay = "0" + endDate.getDate()
   const startString = `${startDate.getFullYear()}-${startMonth.slice(-2)}-${startDay.slice(-2)}`
   const endString = `${endDate.getFullYear()}-${endMonth.slice(-2)}-${endDay.slice(-2)}`
-  const pageString = `${page}`
   
   const searchData = {
     city: city,
     state: region,
     min_date: startString,
     max_date: endString,
-    page: pageString
+    page: page
   }
 
   const config = {
