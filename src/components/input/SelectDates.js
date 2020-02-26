@@ -1,6 +1,5 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
-import addDays from 'date-fns/addDays'
 import "react-datepicker/dist/react-datepicker.css";
 
 const SearchDates = (props) => {
@@ -13,7 +12,8 @@ const SearchDates = (props) => {
         onChange={props.handleStartChange}
         selectsStart
         startDate={props.startDate}
-        endDate={props.endDate} />
+        endDate={props.endDate}
+        minDate={new Date()} />
       <DatePicker 
         placeholderText="End Date"
         className={props.className}
