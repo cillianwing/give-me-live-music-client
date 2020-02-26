@@ -34,15 +34,12 @@ const UpcomingConcerts = (props) => {
   const concertCards = () => {
     const concertsArr = props.concerts.map(concert => (
       <Concert key={concert.id}
-        imgUrl={concert.image} 
-        title={concert.title} 
-        date={concert.start_time.split(' ')[0]} 
-        time={concert.start_time.split(' ')[1]} 
-        venueName={concert.venue_name}
-        city={concert.city_name}
-        state={concert.region_name}
-        country={concert.country_abbr}
-        url={concert.url}
+        display={concert.displayName} 
+        date={concert.start.date} 
+        time={concert.start.time} 
+        venueName={concert.venue.displayName}
+        location={concert.city}
+        url={concert.uri}
         />
       )
     )
