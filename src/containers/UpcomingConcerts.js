@@ -31,30 +31,17 @@ const UpcomingConcerts = (props) => {
     props.logoutUser()
   }
 
-  const concertCards = () => {
-    const concertsArr = props.concerts.map(concert => (
+  const concertCards = props.concerts.map(concert => (
       <Concert key={concert.id}
         display={concert.displayName} 
         date={concert.start.date} 
         time={concert.start.time} 
         venueName={concert.venue.displayName}
-        location={concert.city}
+        location={concert.location.city}
         url={concert.uri}
         />
       )
     )
-    const arr = []
-    while (concertsArr.length > 0) {
-      arr.push(concertsArr.splice(0, 3))
-    }
-    return arr
-  }
-
-  const allConcerts = concertCards().map((concertGroup, index) => (
-    <CardDeck className="my-2" key={index}>
-      {concertGroup}
-    </CardDeck>
-  ))
 
   return (
     <>
@@ -69,7 +56,7 @@ const UpcomingConcerts = (props) => {
         {props.pages > props.page ? <BasicButton size="sm" handleClick={handleNextClick} variant="primary" value="Next" /> : props.page >= props.pages && props.pages !== null ? <BasicButton size="sm" variant="primary" value="Next" disabled="disabled" /> : ''}
       </ButtonGroup>
     </ButtonToolbar>
-    {allConcerts}
+    {concertCards}
     </>
   )
 }
