@@ -1,4 +1,4 @@
-import { CONCERTS_REQUEST, CONCERTS_SUCCESS, CONCERTS_FAILURE } from '../actions/search';
+import { CONCERTS_REQUEST, CONCERTS_SUCCESS, CONCERTS_FAILURE, CLEAR_CONCERTS } from '../actions/search';
 
 const initialState = {
   isLoading: false,
@@ -32,6 +32,8 @@ export const search = (state = initialState, action) => {
         isPulled: false,
         errorMessage: action.message
       }
+    case CLEAR_CONCERTS:
+      return initialState
     default: 
       return state
   }

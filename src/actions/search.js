@@ -3,6 +3,7 @@ import { resetSearchForm } from './searchForm';
 export const CONCERTS_REQUEST = 'CONCERTS_REQUEST'
 export const CONCERTS_SUCCESS = 'CONCERTS_SUCCESS'
 export const CONCERTS_FAILURE = 'CONCERTS_FAILURE'
+export const CLEAR_CONCERTS = 'CLEAR_CONCERTS'
 
 const requestConcerts = (credentials) => {
   return {
@@ -22,6 +23,12 @@ const concertsError = (message) => {
   return {
     type: CONCERTS_FAILURE,
     message
+  }
+}
+
+const clearConcerts = () => {
+  return {
+    type: CLEAR_CONCERTS
   }
 }
 
@@ -56,6 +63,7 @@ export const getConcerts = (credentials, page) => {
     body: JSON.stringify({search: searchData})
   }
   return dispatch => {
+    dispatch(clearConcerts())
     dispatch(requestConcerts(credentials))
     return fetch('http://localhost:3000/api/v1/concerts/upcoming', config)
       .then(res => res.json().then(concerts => ({
