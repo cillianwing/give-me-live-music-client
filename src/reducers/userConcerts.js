@@ -1,4 +1,4 @@
-import { NEW_CONCERT_REQUEST, NEW_CONCERT_SUCCESS, NEW_CONCERT_FAILURE } from '../actions/userConcerts'
+import { NEW_CONCERT_REQUEST, NEW_CONCERT_SUCCESS, NEW_CONCERT_FAILURE, USER_CONCERTS_REQUEST, USER_CONCERTS_SUCCESS, USER_CONCERTS_FAILURE } from '../actions/userConcerts'
 
 const initialState = {
   isLoading: false,
@@ -12,7 +12,8 @@ export const userConcerts = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
-        isPulled: false
+        isPulled: false,
+        userConcerts: state.userConcerts
       }
     case NEW_CONCERT_SUCCESS:
       return {
@@ -23,6 +24,27 @@ export const userConcerts = (state = initialState, action) => {
       }
     case NEW_CONCERT_FAILURE:
       return{
+        ...state,
+        isLoading: false,
+        isPulled: false,
+        errorMessage: action.message
+      }
+    case USER_CONCERTS_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        isPulled: false,
+        userConcerts: state.userConcerts
+      }
+    case USER_CONCERTS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isPulled: true,
+        userConcerts: [...state.userConcerts, action.concerts]
+      }
+    case USER_CONCERTS_FAILURE:
+      return {
         ...state,
         isLoading: false,
         isPulled: false,
