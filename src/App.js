@@ -5,7 +5,7 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import Home from './components/Home'
 import UpcomingConcerts from './containers/UpcomingConcerts'
-import TopNav from './components/nav/TopNav'
+import UserConcerts from './containers/UserConcerts'
 import { getCurrentUser, logoutUser } from './actions/currentUser'
 import { Container } from 'react-bootstrap'
 
@@ -27,7 +27,7 @@ function App(props) {
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={Signup} />
             {/* <Route path='/user/profile' component={UserProfile} /> */}
-            {/* <Route path='user/concerts' component={UserConcerts} /> */}
+            <Route exact path='/user/concerts' component={UserConcerts} />
             <Route path='/concerts/upcoming' component={UpcomingConcerts} />
             {/* <Route path='/venues' component={Venues} /> */}
             {/* <Route path='user/venues' component={UserVenues} /> */}
