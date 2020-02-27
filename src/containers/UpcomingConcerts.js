@@ -65,6 +65,7 @@ const UpcomingConcerts = (props) => {
         city={city(concert)}
         region={region(concert)}
         url={concert.uri}
+        apiId={concert.id}
         />
       )
     )

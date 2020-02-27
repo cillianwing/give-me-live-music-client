@@ -1,14 +1,18 @@
 import React from 'react'
+import { connect } from 'react-redux';
 import { Card, Row, Col } from 'react-bootstrap';
-import BasicButton from './input/BasicButton'
+import { Link } from 'react-router-dom';
+import BasicButton from './input/BasicButton';
+import { newConcert } from '../actions/userConcerts'
 
 const Concert = (props) => {
 
-  const handleGoingClick = (event, props) => {
+  const handleGoingClick = (event, params) => {
     event.preventDefault()
+    props.newConcert(params, props.user)
   }
   
-  const handleInfoClick = (event) => {
+  const handleInfoClick = (event, props) => {
     event.preventDefault()
   }
 
@@ -32,4 +36,10 @@ const Concert = (props) => {
   )
 }
 
-export default Concert;
+const mapStateToProps = state => {
+  return {
+    user: state.currentUser.user
+  }
+}
+
+export default connect(mapStateToProps, { newConcert })(Concert);
