@@ -1,5 +1,6 @@
 import { resetLoginForm } from './authForm';
 import { resetSignupForm } from './authForm';
+import { getUserConcerts } from './userConcerts';
 
 export const REQUEST_LOGIN = "REQUEST_LOGIN"
 export const LOGIN_FAIL = 'LOGIN_FAIL'
@@ -148,6 +149,7 @@ export const getCurrentUser = () => {
     })
 		.then(data => {
 			dispatch(setCurrentUser(data))
+			dispatch(getUserConcerts(data))
 		}).catch(err => console.log("Error: ", err))
 	}
 }

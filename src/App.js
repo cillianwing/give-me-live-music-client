@@ -40,7 +40,7 @@ function App(props) {
 
 const mapStateToProps = (state) => {
   return {
-    loggedIn: state.currentUser.isAuthenticated
+    loggedIn: state.currentUser.isAuthenticated,
   }
 }
 

@@ -100,7 +100,6 @@ export const getUserConcerts = (user) => {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     },
-    body: JSON.stringify({concert: concertData})
   }
 
   return dispatch => {

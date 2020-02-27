@@ -29,6 +29,7 @@ const UpcomingConcerts = (props) => {
   const handleLogout = (event) => {
     event.preventDefault()
     props.logoutUser()
+    props.history.push('/')
   }
 
   const headliners = (concert) => {
