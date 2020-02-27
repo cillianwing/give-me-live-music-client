@@ -16,6 +16,12 @@ const Concert = (props) => {
     event.preventDefault()
   }
 
+  const checkConcerts = () => {
+    return props.concertIds.includes(props.apiId) ? 
+      <BasicButton disabled="disabled" size="sm" className="mb-1" block="block" variant="warning" value="Already going!" /> : 
+      <BasicButton handleClick={event => handleGoingClick(event, props)} size="sm" className="mb-1" block="block" variant="success" value="Going!" />
+  }
+
   return (
       <Card className="text-center my-2">
         <Card.Body>
@@ -27,8 +33,8 @@ const Concert = (props) => {
               </Card.Text>
             </Col>
             <Col xs={12} md={3}>
-              <BasicButton handleClick={event => handleGoingClick(event, props)} size="sm" className="mb-1" block="block" variant="success" value="Going!" />
-              <BasicButton handleClick={event => handleInfoClick(event, props)} size="sm" className="mt-1" block="block" variant="info" value="More Info" />
+            {checkConcerts()}
+            <BasicButton handleClick={event => handleInfoClick(event, props)} size="sm" className="mt-1" block="block" variant="info" value="More Info" />
             </Col>
           </Row>
         </Card.Body>
@@ -38,7 +44,9 @@ const Concert = (props) => {
 
 const mapStateToProps = state => {
   return {
-    user: state.currentUser.user
+    user: state.currentUser.user,
+    userConcerts: state.userConcerts.userConcerts,
+    concertIds: state.userConcerts.userConcerts.map(concert => concert.api_id)
   }
 }
 
