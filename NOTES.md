@@ -12,7 +12,8 @@
 ## NextConcert (component)
 
 ### Child Components / Properties
-- Single column row at top of UserConcerts that will give all details for the user's next concert
+- Need to add sorting to detail concerts array so that it truly shows the "next concert"
+- Still needs venue details on left portion of column
 
 ## UserProfile
 
@@ -23,8 +24,3 @@
 
 ### Child Components / PresentiaPropertiestion
 - Large calendar showing user's upcoming concerts for the next month or two
-
-## PlaybackButton (if possible to find song samples for free)
-
-### Child Components / Properties
--**ambitious goal**: Be able to play back snippets of songs for headlining artist from UpcomingConcerts page

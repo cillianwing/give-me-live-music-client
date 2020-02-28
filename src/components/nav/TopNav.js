@@ -13,13 +13,11 @@ const TopNav = (props) => {
   return (
     <MDBNavbar color="default-color" dark expand="md">
     <MDBNavbarBrand>
-      <strong className="white-text"><MDBIcon fab icon="connectdevelop" /> Music Time!</strong>
+      <strong className="white-text"><MDBIcon fab icon="connectdevelop" /> Music Time! <MDBIcon fab icon="connectdevelop" /></strong>
     </MDBNavbarBrand>
     <MDBNavbarToggler onClick={toggleCollapse} />
     <MDBCollapse id="navbarCollapse3" isOpen={open} navbar>
-      <MDBNavbarNav right>
-        {props.loggedIn ? <TopNavLoggedIn handleLogout={props.handleLogout} /> : <TopNavLoggedOut />}
-      </MDBNavbarNav>
+    {props.loggedIn ? <TopNavLoggedIn handleLogout={props.handleLogout} /> : <TopNavLoggedOut />}
     </MDBCollapse>
   </MDBNavbar>
   )

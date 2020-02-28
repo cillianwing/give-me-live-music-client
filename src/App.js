@@ -28,7 +28,7 @@ function App(props) {
             <Route exact path='/signup' component={Signup} />
             {/* <Route path='/user/profile' component={UserProfile} /> */}
             <Route exact path='/user/concerts' component={UserConcerts} />
-            <Route path='/concerts/upcoming' component={UpcomingConcerts} />
+            <Route exact path='/concerts/upcoming' component={UpcomingConcerts} />
             {/* <Route path='/venues' component={Venues} /> */}
             {/* <Route path='user/venues' component={UserVenues} /> */}
           </Container>

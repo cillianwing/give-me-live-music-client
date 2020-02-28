@@ -11,15 +11,15 @@ const NextConcert = (props) => {
     date: props.concert.start.date ? new Date(props.concert.start.date) : '',
     time: props.concert.start.time,
     endDate: props.concert.end ? new Date(props.concert.end.date) : '',
-    endTime: props.concert.end ? props.concert.end.time : '',
-    popularity: props.concert.popularity,
-    venueName: props.concert.venue.displayName,
-    location: props.concert.venue.location.city,
-    street: props.concert.venue.street,
-    venueUrl: props.concert.venue.uri,
-    ageRestriction: props.concert.ageRestriction,
-    venueDescription: props.concert.venue.description,
-    venueCapacity: props.concert.venue.capacity
+    endTime: props.concert.end ? props.concert.end.time : ''
+    // popularity: props.concert.popularity,
+    // venueName: props.concert.venue.displayName,
+    // location: props.concert.venue.location.city,
+    // street: props.concert.venue.street,
+    // venueUrl: props.concert.venue.uri,
+    // ageRestriction: props.concert.ageRestriction,
+    // venueDescription: props.concert.venue.description,
+    // venueCapacity: props.concert.venue.capacity
   }
 
   return (

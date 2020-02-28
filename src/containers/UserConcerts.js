@@ -26,21 +26,6 @@ const UserConcerts = (props) => {
   }
 
   return (
-    // <Container>
-    //   <TopNav loggedIn={props.loggedIn} handleLogout={handleLogout} />
-    //   <Col className="my-4" style={{borderRight: "1px solid black"}} lg={8}>
-    //     <Tabs id="controlled-tab-example" activeKey={key} onSelect={k => setKey(k)}>
-    //       <Tab eventKey="general" title="General Concert Info">
-    //         <TabPane>
-    //           1
-    //         </TabPane>
-    //       </Tab>
-    //       <Tab eventKey="detailed" title="Detailed Concert Info">
-    //         2
-    //       </Tab>
-    //     </Tabs>
-    //   </Col>
-    // </Container>
     <Container>
       <TopNav loggedIn={props.loggedIn} handleLogout={handleLogout} />
       <LoadingSpinner show={modalShow} />
@@ -57,10 +42,10 @@ const UserConcerts = (props) => {
             activeKey={key}
             onSelect={k => handleSelect(k)}
           >
-            <Nav.Item className="text-center" style={{ width: "200px" }}>
+            <Nav.Item className="text-center" style={{ width: "30%" }}>
               <Nav.Link eventKey="basic">Basic View</Nav.Link>
             </Nav.Item>
-            <Nav.Item className="text-center" style={{ width: "200px" }}>
+            <Nav.Item className="text-center" style={{ width: "30%" }}>
               <Nav.Link eventKey="detailed">Detailed View</Nav.Link>
             </Nav.Item>
           </Nav>
