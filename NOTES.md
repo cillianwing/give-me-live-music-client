@@ -18,7 +18,11 @@
 ## UserProfile
 
 ### Child Components / Properties
-- 
+
+## SearchForm / UpcomingConcerts
+
+### Child Components / Properties
+- I want to add the ability to search for an artist name to see their upcoming dates.
 
 ## Calendar (component)
 
