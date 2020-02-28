@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux'
-import { Container, Col, CardDeck, Card, Row, Nav } from 'react-bootstrap'
-import TopNav from '../components/nav/TopNav'
+import { connect } from 'react-redux';
+import TopNav from '../components/nav/TopNav';
+import NextConcert from '../components/concert/NextConcert';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { logoutUser } from '../actions/currentUser';
 import { getConcertDetailed } from '../actions/userConcerts';
+import { Container, Col, CardDeck, Card, Row, Nav } from 'react-bootstrap';
 
 const UserConcerts = (props) => {
   const [key, setKey] = useState('basic')
+  const [modalShow, setModalShow] = useState(false)
 
   useEffect(() => {
-    if (props.userConcerts.length > 0) {
-      props.getConcertDetailed(props.userConcerts)
-    }
+    return props.isLoading ? setModalShow(true) : setModalShow(false)
   })
 
   const handleLogout = (event) => {
@@ -42,23 +43,9 @@ const UserConcerts = (props) => {
     // </Container>
     <Container>
       <TopNav loggedIn={props.loggedIn} handleLogout={handleLogout} />
+      <LoadingSpinner show={modalShow} />
       <Row className="my-3">
-        <Col xs={12} sm={12} md={12} lg={12}>
-          <h3 className="text-center mt-2">Next Concert</h3>
-          <Card>
-            <Card.Body>
-              <Card.Title>Top Row Next Concert</Card.Title>
-              <Card.Text>
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
-              </Card.Text>
-            </Card.Body>
-            <Card.Footer>
-              <small className="text-muted">Last updated 3 mins ago</small>
-            </Card.Footer>
-          </Card>
-        </Col>
+      {props.detailPulled && props.concertsDetailed.length > 0 ? <NextConcert concert={props.concertsDetailed[0]} /> : '' }
       </Row>
       <Row>
         <Col xs={12} sm={12} md={12} lg={8}>
@@ -158,7 +145,11 @@ const UserConcerts = (props) => {
 const mapStateToProps = (state) => {
   return {
     loggedIn: state.currentUser.isAuthenticated,
-    userConcerts: state.userConcerts.userConcerts
+    userConcerts: state.userConcerts.userConcerts,
+    isLoading: state.userConcerts.isLoading,
+    isPulled: state.userConcerts.isPulled,
+    detailPulled: state.userConcerts.detailPulled,
+    concertsDetailed: state.userConcerts.concertsDetailed
   }
 }
 

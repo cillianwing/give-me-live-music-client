@@ -7,6 +7,7 @@ export const USER_CONCERTS_FAILURE = 'USER_CONCERTS_FAILURE'
 export const CONCERT_DETAILED_REQUEST = 'CONCERT_DETAILED_REQUEST'
 export const CONCERT_DETAILED_SUCCESS = 'CONCERT_DETAILED_SUCCESS'
 export const CONCERT_DETAILED_FAILURE = 'CONCERT_DETAILED_FAILURE'
+export const DETAIL_PULLED = 'DETAIL_PULLED'
 
 const requestNewConcert = (credentials) => {
   return {
@@ -66,6 +67,12 @@ const concertDetailedError = (message) => {
   return {
     type: CONCERT_DETAILED_FAILURE,
     message
+  }
+}
+
+const setDetailPulled = () => {
+  return {
+    type: DETAIL_PULLED
   }
 }
 
@@ -137,6 +144,7 @@ export const getUserConcerts = (user) => {
     .then(data => {
       if (data.success) {
         dispatch(receiveAllConcerts(data.concerts))
+        dispatch(getConcertDetailed(data.concerts))
       } else {
         dispatch(allConcertsError(data.failure))
       }
@@ -172,5 +180,6 @@ export const getConcertDetailed = (concerts) => {
           }
         }).catch(err => console.log("Errors: ", err))
       }
+      dispatch(setDetailPulled())
     }
 }
