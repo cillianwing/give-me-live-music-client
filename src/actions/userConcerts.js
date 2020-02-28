@@ -49,7 +49,7 @@ const allConcertsError = (message) => {
 export const newConcert = (credentials, user) => {
   const concertData = {
     display: credentials.display,
-    type: credentials.type,
+    event_type: credentials.eventType,
     url: credentials.url,
     venue_id: credentials.venueId,
     venue_name: credentials.venueName,

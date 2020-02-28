@@ -2,7 +2,6 @@ import { NEW_CONCERT_REQUEST, NEW_CONCERT_SUCCESS, NEW_CONCERT_FAILURE, USER_CON
 
 const initialState = {
   isLoading: false,
-  isCreated: false,
   isPulled: false,
   userConcerts: []
 }
@@ -13,21 +12,18 @@ export const userConcerts = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
-        isCreated: false,
         userConcerts: state.userConcerts
       }
     case NEW_CONCERT_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        isCreated: true,
         userConcerts: [...state.userConcerts, action.concert]
       }
     case NEW_CONCERT_FAILURE:
       return{
         ...state,
         isLoading: false,
-        isCreated: false,
         errorMessage: action.message
       }
     case USER_CONCERTS_REQUEST:

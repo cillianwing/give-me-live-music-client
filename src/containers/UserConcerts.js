@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux'
 import { Container, Col, CardDeck, Card, Row, Nav } from 'react-bootstrap'
 import TopNav from '../components/nav/TopNav'
+import { logoutUser } from '../actions/currentUser';
 
 const UserConcerts = (props) => {
   const [key, setKey] = useState('basic')
@@ -9,6 +10,7 @@ const UserConcerts = (props) => {
   const handleLogout = (event) => {
     event.preventDefault()
     props.logoutUser()
+    props.history.push('/')
   }
 
   const handleSelect = (k) => {
@@ -152,4 +154,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, null)(UserConcerts);
+export default connect(mapStateToProps, { logoutUser })(UserConcerts);

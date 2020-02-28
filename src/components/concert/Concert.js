@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { Card, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import BasicButton from './input/BasicButton';
-import { newConcert } from '../actions/userConcerts'
+import BasicButton from '../input/BasicButton';
+import { newConcert } from '../../actions/userConcerts'
 
 const Concert = (props) => {
 
