@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
 import { Container, Col, CardDeck, Card, Row, Nav } from 'react-bootstrap'
 import TopNav from '../components/nav/TopNav'
 import { logoutUser } from '../actions/currentUser';
+import { getConcertDetailed } from '../actions/userConcerts';
 
 const UserConcerts = (props) => {
   const [key, setKey] = useState('basic')
+
+  useEffect(() => {
+    if (props.userConcerts.length > 0) {
+      props.getConcertDetailed(props.userConcerts)
+    }
+  })
 
   const handleLogout = (event) => {
     event.preventDefault()
@@ -150,8 +157,9 @@ const UserConcerts = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    loggedIn: state.currentUser.isAuthenticated
+    loggedIn: state.currentUser.isAuthenticated,
+    userConcerts: state.userConcerts.userConcerts
   }
 }
 
-export default connect(mapStateToProps, { logoutUser })(UserConcerts);
+export default connect(mapStateToProps, { logoutUser, getConcertDetailed })(UserConcerts);

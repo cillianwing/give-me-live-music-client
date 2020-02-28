@@ -145,34 +145,32 @@ export const getUserConcerts = (user) => {
 
 }
 
-export const getConcertDetailed = (user, concert) => {
+export const getConcertDetailed = (concerts) => {
 
-  const config = {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem("token")}`
-    },
-    body: JSON.stringify(concert)
-  }
-
-  return dispatch => {
-    dispatch(requestConcertDetailed())
-    return fetch(`http://localhost:3000/api/v1/users/${user.id}/concerts/details`, config)
-    .then(res => {
-      if (!res.ok) {
-        throw res
+    return dispatch => {
+      for (let i = 0; i < concerts.length; i++) {
+        dispatch(requestConcertDetailed())
+        fetch('http://localhost:3000/api/v1/concerts/details', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          },
+          body: JSON.stringify({concert: concerts[i].api_id})
+        })
+          .then(res => res.json().then(concert => ({
+            status: res.status,
+            concert
+          })
+        ))
+        .then(({ status, concert }) => {
+          if (status >= 400) {
+            dispatch(concertDetailedError(concert.message))
+          } else {
+            dispatch(receiveConcertDetailed(concert))
+          }
+        }).catch(err => console.log("Errors: ", err))
       }
-      return res.json()
-    })
-    .then(data => {
-      if (data.success) {
-        dispatch(receiveConcertDetailed(data.concert))
-      } else {
-        dispatch(concertDetailedError(data.failure))
-      }
-    }).catch(err => console.log("Error: ", err))
-  }
-
+    }
 }
