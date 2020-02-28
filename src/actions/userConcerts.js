@@ -49,6 +49,26 @@ const allConcertsError = (message) => {
   }
 }
 
+const requestConcertDetailed = () => {
+  return {
+    type: CONCERT_DETAILED_REQUEST
+  }
+}
+
+const receiveConcertDetailed = (concert) => {
+  return {
+    type: CONCERT_DETAILED_SUCCESS,
+    concert
+  }
+}
+
+const concertDetailedError = (message) => {
+  return {
+    type: CONCERT_DETAILED_FAILURE,
+    message
+  }
+}
+
 export const newConcert = (credentials, user) => {
   const concertData = {
     display: credentials.display,
@@ -119,6 +139,38 @@ export const getUserConcerts = (user) => {
         dispatch(receiveAllConcerts(data.concerts))
       } else {
         dispatch(allConcertsError(data.failure))
+      }
+    }).catch(err => console.log("Error: ", err))
+  }
+
+}
+
+export const getConcertDetailed = (user, concert) => {
+
+  const config = {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    },
+    body: JSON.stringify(concert)
+  }
+
+  return dispatch => {
+    dispatch(requestConcertDetailed())
+    return fetch(`http://localhost:3000/api/v1/users/${user.id}/concerts/details`, config)
+    .then(res => {
+      if (!res.ok) {
+        throw res
+      }
+      return res.json()
+    })
+    .then(data => {
+      if (data.success) {
+        dispatch(receiveConcertDetailed(data.concert))
+      } else {
+        dispatch(concertDetailedError(data.failure))
       }
     }).catch(err => console.log("Error: ", err))
   }

@@ -70,7 +70,7 @@ export const userConcerts = (state = initialState, action) => {
         ...state,
         isLoading: false,
         detailPulled: true,
-        concertsDetailed: action.concerts
+        concertsDetailed: [...state.concertsDetailed, action.concerts]
       }
     case CONCERT_DETAILED_FAILURE:
 
