@@ -1,5 +1,6 @@
 import React from 'react'
-import { Col, Card, Row } from 'react-bootstrap'
+import { Col, Card, Row, Button } from 'react-bootstrap'
+import BasicButton from '../input/BasicButton'
 
 const NextConcert = (props) => {
   const params = {
@@ -11,36 +12,37 @@ const NextConcert = (props) => {
     date: props.concert.start.date ? new Date(props.concert.start.date) : '',
     time: props.concert.start.time,
     endDate: props.concert.end ? new Date(props.concert.end.date) : '',
-    endTime: props.concert.end ? props.concert.end.time : ''
-    // popularity: props.concert.popularity,
-    // venueName: props.concert.venue.displayName,
-    // location: props.concert.venue.location.city,
-    // street: props.concert.venue.street,
-    // venueUrl: props.concert.venue.uri,
-    // ageRestriction: props.concert.ageRestriction,
-    // venueDescription: props.concert.venue.description,
-    // venueCapacity: props.concert.venue.capacity
+    endTime: props.concert.end ? props.concert.end.time : '',
+    popularity: props.concert.popularity,
+    venueName: props.concert.venue.displayName,
+    location: props.concert.location.city,
+    street: props.concert.venue.street,
+    venueUrl: props.concert.venue.website ? props.concert.venue.website : props.concert.venue.uri,
+    ageRestriction: props.concert.ageRestriction,
+    venueDescription: props.concert.venue.description,
+    venueCapacity: props.concert.venue.capacity
   }
 
   return (
     <>
     <Col xs={12} sm={12} md={12} lg={12}>
-      <h5 className="text-center mt-2">Your Next Concert: <strong>{params.displayName}</strong></h5>
+      
       <Card>
+        <h5 className="text-center mt-2">Your Next Event: <strong>{params.displayName}</strong></h5>
         <Row className="justify-content-center">
           <Col className="text-center" style={{borderRight: "1px dashed blue"}} xs={6} sm={6} md={6} lg={6}>
             <Card.Body>
             <Card.Title>{props.concert.type} Details</Card.Title>
               <Card.Text>
-                <p><span>{params.headline.length !== 0 ? `Headline: ${params.headline.map(artist => artist.displayName).join(' / ')}` : ''}</span>
-                <span>{params.support.length !== 0 ? `  -  Support: ${params.support.map(artist => artist.displayName).join(' / ')}` : ''}</span></p>
+                {params.headline.length !== 0 ? `Headline: ${params.headline.map(artist => artist.displayName).join(' / ')}` : ''}
+                {params.support.length !== 0 ? `  -  Support: ${params.support.map(artist => artist.displayName).join(' / ')}` : ''}
               </Card.Text>
               <Card.Text>
-                <p>{params.date ? `Event starts on ${params.date.toLocaleDateString()}` : ''}{params.time ? ` @ ${params.time}` : ''}
-                {params.eventType === 'Festival' ? ` and ends on ${params.endDate.toLocaleDateString()}` : ''}{params.endTime ? ` @ ${params.endTime}` : ''}</p>
+                {params.date ? `Event starts on ${params.date.toLocaleDateString()}` : ''}{params.time ? ` @ ${params.time}` : ''}
+                {params.eventType === 'Festival' ? ` and ends on ${params.endDate.toLocaleDateString()}` : ''}{params.endTime ? ` @ ${params.endTime}` : ''}
               </Card.Text>
               <Card.Text>
-                <p>Popularity: Add a star thingy?</p>
+                Popularity: Add a star thingy?
               </Card.Text>
             </Card.Body>
           </Col>
@@ -53,8 +55,10 @@ const NextConcert = (props) => {
             </Card.Body>
           </Col>
         </Row>
-        <Card.Footer>
-          <small className="text-muted">Last updated 3 mins ago</small>
+        <Card.Footer className="text-center">
+          <BasicButton size="sm" style={{width: "20%"}} variant="primary" value="Concert Link" />
+          <BasicButton size="sm" className="mx-3" style={{width: "20%"}} variant="secondary" value="Delete Concert" />
+          <BasicButton size="sm" style={{width: "20%"}} variant="success" value="Venue Link" />       
         </Card.Footer>
       </Card>
     </Col>

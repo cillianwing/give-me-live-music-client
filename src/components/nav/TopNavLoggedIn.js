@@ -5,27 +5,27 @@ import { MDBNavbarNav, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropd
 const TopNavLoggedIn = (props) => {
   return (
     <>
-    <MDBNavbarNav left>
+    <MDBNavbarNav right>
       <MDBNavItem>
-        <MDBNavLink className="waves-effect waves-light" to="/concerts/upcoming">
-          Search Concerts
+        <MDBNavLink className="waves-effect waves-light" to="/user/concerts">
+          My Concerts <MDBIcon icon="icons" />
         </MDBNavLink>
       </MDBNavItem>
       <MDBNavItem>
-        <MDBNavLink className="waves-effect waves-light" to="/user/concerts">
-          My Concerts
+        <MDBNavLink className="waves-effect waves-light" to="/concerts/upcoming">
+          <MDBIcon icon="search" /> Search Concerts
         </MDBNavLink>
       </MDBNavItem>
     </MDBNavbarNav>
     <MDBNavbarNav right>
       <MDBNavItem>
         <MDBNavLink className="waves-effect waves-light" to="/user/profile">
-          Profile <MDBIcon far icon="user-circle" />
+        <MDBIcon far icon="user-circle" /> Profile
         </MDBNavLink>
       </MDBNavItem>
       <MDBNavItem>
         <MDBNavLink className="waves-effect waves-light" to="/" onClick={props.handleLogout} >
-          Logout
+        <MDBIcon icon="sign-out-alt" /> Logout
         </MDBNavLink>
       </MDBNavItem>   
     </MDBNavbarNav>
