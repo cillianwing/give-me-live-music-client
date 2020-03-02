@@ -13,7 +13,7 @@ const UserConcerts = (props) => {
 
   useEffect(() => {
     return props.isLoading ? setModalShow(true) : setModalShow(false)
-  })
+  }, [props.isLoading])
 
   const handleLogout = (event) => {
     event.preventDefault()
