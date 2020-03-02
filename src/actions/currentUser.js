@@ -10,6 +10,9 @@ export const REQUEST_LOGOUT = 'REQUEST_LOGOUT'
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export const CLEAR_CURRENT_USER = 'CLEAR_CURRENT_USER'
 export const CLEAR_ERROR_MESSAGE = 'CLEAR_ERROR_MESSAGE'
+export const REQUEST_UPDATE = "REQUEST_UPDATE"
+export const UPDATE_SUCCESS = 'UPDATE_SUCCESS'
+export const UPDATE_FAIL = 'UPDATE_FAIL'
 
 export const requestLogin = (credentials) => {
   return {
@@ -30,6 +33,27 @@ export const loginError = (message) => {
 		type: LOGIN_FAIL,
     message
   }
+}
+
+export const requestUpdate = (credentials) => {
+	return {
+		type: REQUEST_UPDATE,
+		credentials
+	}
+}
+
+export const updateSuccess = (user) => {
+	return {
+		type: UPDATE_SUCCESS,
+		user
+	}
+}
+
+export const updateError = (message) => {
+	return {
+		type: UPDATE_FAIL,
+		message
+	}
 }
 
 export const requestSignup = (credentials) => {
@@ -119,6 +143,42 @@ export const signupUser = (credentials) => {
 			} else {
 				dispatch(resetSignupForm())
 				dispatch(signupError(data.failure))
+			}
+
+		}).catch(err => console.log("Error: ", err))
+	}
+}
+
+export const updateUser = (credentials, user) => {
+	const params = {
+		id: user.id,
+		...credentials
+	}
+
+	return dispatch => {
+    dispatch(requestUpdate(params))
+		return fetch(`http://localhost:3000/api/v1/users/${user.id}`, {
+			method: 'PATCH',
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "application/json",
+				'Authorization': `Bearer ${localStorage.getItem("token")}`
+			},
+			body: JSON.stringify({user: params})
+		})
+		.then(res => {
+      if (!res.ok) {
+        throw res
+      }
+      return res.json()
+    })
+		.then(data => {
+			if (data.success) {
+				console.log(data.success)
+				dispatch(updateSuccess(data.user))
+			} else {
+				console.log(data.failure)
+				dispatch(updateError(data.failure))
 			}
 
 		}).catch(err => console.log("Error: ", err))

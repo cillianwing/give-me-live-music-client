@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
-// import { updateSignupForm } from '../actions/authForm'
-import { getCurrentUser } from '../actions/currentUser'
+import { updateProfileForm } from '../actions/authForm'
+import { getCurrentUser, updateUser } from '../actions/currentUser'
 import ProfileView from '../components/ProfileView'
 import ProfileEdit from '../components/ProfileEdit'
 
@@ -18,15 +18,15 @@ const UserProfile = (props) => {
   const handleInputChange = (event) => {
     const { name, value } = event.target
     const updatedFormInfo = {
-      ...props.signupFormData,
+      ...props.profileFormData,
       [name]: value
     }
-    // props.updateSignupForm(updatedFormInfo)
+    props.updateProfileForm(updatedFormInfo)
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    // props.signupUser({user: props.signupFormData})
+    props.updateUser(props.profileFormData, props.currentUser)
   }  
 
   const handleEditClick = (event) => {
@@ -42,15 +42,16 @@ const UserProfile = (props) => {
   return(
     <>
     { props.currentUser && !editProfile ? <ProfileView handleEditClick={handleEditClick} user={props.currentUser} /> : 
-      props.currentUser && editProfile ? <ProfileEdit user={props.currentUser} handleSubmit={handleSubmit} handleChange={handleInputChange} handleCancel={handleCancel} /> : '' }
+      props.currentUser && editProfile ? <ProfileEdit user={props.currentUser} profileFormData={props.profileFormData} handleSubmit={handleSubmit} handleInputChange={handleInputChange} handleCancel={handleCancel} /> : '' }
     </>
   )
 }
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.currentUser.user
+    currentUser: state.currentUser.user,
+    profileFormData: state.profileForm
   }
 }
 
-export default connect(mapStateToProps, { getCurrentUser })(UserProfile);
+export default connect(mapStateToProps, { getCurrentUser, updateProfileForm, updateUser })(UserProfile);

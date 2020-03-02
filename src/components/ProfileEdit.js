@@ -62,18 +62,18 @@ const ProfileEdit = (props) => {
                 name="first_name"
                 variant="outlined"
                 fullWidth
-                value={props.user.first_name}
+                value={props.profileFormData.first_name}
                 id="first_name"
                 label="First Name"
                 autoFocus
-                onChange={props.handleInputChange}
+                onChange={event => props.handleInputChange(event)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
                 fullWidth
-                value={props.user.last_name}
+                value={props.profileFormData.last_name}
                 id="last_name"
                 label="Last Name"
                 name="last_name"
@@ -85,7 +85,7 @@ const ProfileEdit = (props) => {
               <TextField
                 variant="outlined"
                 fullWidth
-                value={props.user.location}
+                value={props.profileFormData.location}
                 id="location"
                 label="Location"
                 name="location"
@@ -99,7 +99,7 @@ const ProfileEdit = (props) => {
                 fullWidth
                 multiline
                 rows="3"
-                value={props.user.about}
+                value={props.profileFormData.about}
                 id="about"
                 label="About Me"
                 name="about"
@@ -107,6 +107,7 @@ const ProfileEdit = (props) => {
                 onChange={props.handleInputChange}
               />
             </Grid>
+            <input type="hidden" name="password" id="password" value={props.user.password_digest} />
           </Grid>
           <Button
             type="submit"
