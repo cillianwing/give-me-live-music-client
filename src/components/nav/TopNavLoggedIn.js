@@ -7,17 +7,15 @@ const TopNavLoggedIn = (props) => {
     <>
     <MDBNavbarNav right>
       <MDBNavItem>
-        <MDBNavLink className="waves-effect waves-light" to="/user/concerts">
-          My Concerts <MDBIcon icon="icons" />
-        </MDBNavLink>
-      </MDBNavItem>
-      <MDBNavItem>
         <MDBNavLink className="waves-effect waves-light" to="/concerts/upcoming">
           <MDBIcon icon="search" /> Search Concerts
         </MDBNavLink>
       </MDBNavItem>
-    </MDBNavbarNav>
-    <MDBNavbarNav right>
+      <MDBNavItem>
+        <MDBNavLink className="waves-effect waves-light" to="/user/concerts">
+        <MDBIcon icon="icons" /> My Concerts
+        </MDBNavLink>
+      </MDBNavItem>
       <MDBNavItem>
         <MDBNavLink className="waves-effect waves-light" to="/user/profile">
         <MDBIcon far icon="user-circle" /> Profile

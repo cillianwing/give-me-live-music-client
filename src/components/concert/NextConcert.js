@@ -54,7 +54,7 @@ const NextConcert = (props) => {
               <Card.Text>
                 {params.street ? `${params.street} - ` : ''}{params.location}
               </Card.Text>
-              <Card.Text>
+              <Card.Text className="mb-0">
                 {params.ageRestriction ? `Age Restriction: ${params.ageRestriction}` : 'Age Restriction: None'}
               </Card.Text>
               <Card.Text>
