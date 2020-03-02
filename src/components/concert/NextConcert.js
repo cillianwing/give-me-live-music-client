@@ -43,9 +43,9 @@ const NextConcert = (props) => {
                 {params.eventType === 'Festival' ? ` and ends on ${params.endDate.toLocaleDateString()}` : ''}{params.endTime ? ` @ ${params.endTime}` : ''}
               </Card.Text>
               <Card.Text className="mb-0">
-                Popularity: {Math.round((params.popularity * 1000)*2)/2} / 10
+                Popularity: {(Math.round(params.popularity * 1000) < 10) ? `${Math.round((params.popularity * 1000)*2)/2} / 10` : '10 / 10' } 
               </Card.Text>
-              {params.popularity ? <ProgressBar className="mx-auto" style={{width: "50%"}} now={params.popularity * 10000} variant="success" /> : ''}
+              {params.popularity ? <ProgressBar className="mx-auto" style={{width: "50%"}} now={params.popularity * 10000} max={100} variant="success" /> : ''}
             </Card.Body>
           </Col>
           <Col className="text-center" xs={12} sm={12} md={12} lg={6}>
