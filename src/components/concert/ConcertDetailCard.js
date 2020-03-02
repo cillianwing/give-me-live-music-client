@@ -26,10 +26,6 @@ const ConcertDetailCard = (props) => {
     venuePhone: props.concert.venue.phone
   }
 
-  const handleDelete = (event, concert) => {
-    event.preventDefault()
-  }
-
   return (
     <>
     <Col xs={12} sm={12} md={12} lg={12}>
@@ -69,7 +65,7 @@ const ConcertDetailCard = (props) => {
                 <Button block href={params.url} target="_blank" size="sm" variant="primary">Concert Link</Button>
               </Col>
               <Col className="my-1" sm={{span: 12, order: 3}} md={{span: 12, order: 3}} lg={{span: 4, order: 2}}>
-                <BasicButton block="block" size="sm" variant="secondary" handleClick={event => handleDelete(event, params.apiId)} value="Delete Concert" />
+                <BasicButton block="block" size="sm" variant="secondary" handleClick={props.handleDelete} value="Delete Concert" />
               </Col>
               <Col className="my-1" sm={{span: 12, order: 2}} md={{span: 12, order: 2}} lg={{span: 4, order: 3}}>
                 <Button block href={params.venueUrl} target="_blank" size="sm" variant="success">Venue Link</Button> 
@@ -80,7 +76,6 @@ const ConcertDetailCard = (props) => {
       </Col>
     </>
   )
-
 }
 
 export default ConcertDetailCard;

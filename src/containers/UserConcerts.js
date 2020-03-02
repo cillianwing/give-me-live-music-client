@@ -7,15 +7,11 @@ import ConcertDetailCard from '../components/concert/ConcertDetailCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { logoutUser } from '../actions/currentUser';
 import { getConcertDetailed } from '../actions/userConcerts';
+import { deleteUserConcert } from '.././actions/userConcerts';
 import { Container, Col, CardDeck, Card, Row, Nav } from 'react-bootstrap';
 
 const UserConcerts = (props) => {
   const [key, setKey] = useState('basic')
-  const [modalShow, setModalShow] = useState(false)
-
-  useEffect(() => {
-    return props.isLoading ? setModalShow(true) : setModalShow(false)
-  }, [props.isLoading])
 
   const handleLogout = (event) => {
     event.preventDefault()
@@ -29,20 +25,30 @@ const UserConcerts = (props) => {
 
   const basicConcertCards = () => {
     const upcoming = props.concertsDetailed.slice(1)
-    return upcoming.map(concert => <ConcertBasicCard key={concert.id} concert={concert} />)
+    return upcoming.map(concert => <ConcertBasicCard handleDelete={event => handleDelete(event, findUserConcert(concert))} key={concert.id} concert={concert} />)
   }
 
   const detailConcertCards = () => {
     const upcoming = props.concertsDetailed.slice(1)
-    return upcoming.map(concert => <ConcertDetailCard key={concert.id} concert={concert} />)
+    return upcoming.map(concert => <ConcertDetailCard handleDelete={event => handleDelete(event, findUserConcert(concert))} key={concert.id} concert={concert} />)
+  }
+
+  const handleDelete = (event, concert) => {
+    event.preventDefault()
+    props.deleteUserConcert(concert, props.user)
+  }
+
+  const findUserConcert = (concert) => {
+    const userConcert = props.userConcerts.filter(el => el.api_id === concert.id)
+    return userConcert
   }
 
   return (
     <Container>
       <TopNav loggedIn={props.loggedIn} handleLogout={handleLogout} />
-      <LoadingSpinner show={modalShow} />
+      <LoadingSpinner show={props.isLoading} />
       <Row className="my-3">
-      {props.detailPulled && props.concertsDetailed.length > 0 && props.userConcerts.length === props.concertsDetailed.length ? <NextConcert concert={props.concertsDetailed[0]} /> : <Col className="text-center mt-3"><h4>Loading next concert info...</h4></Col> }
+      {props.detailPulled && props.concertsDetailed.length > 0 && props.userConcerts.length === props.concertsDetailed.length ? <NextConcert handleDelete={event => handleDelete(event, findUserConcert(props.concertsDetailed[0]))} concert={props.concertsDetailed[0]} /> : <Col className="text-center mt-3"><h4>Loading next concert info...</h4></Col> }
       </Row>
       <Row>
         <Col xs={12} sm={12} md={12} lg={8}>
@@ -62,7 +68,8 @@ const UserConcerts = (props) => {
             </Nav.Item>
           </Nav>
           <Row className="text-center mt-2">
-            {key === 'basic' ? basicConcertCards() : detailConcertCards()}
+            {key === 'basic' && props.concertDeleted ? basicConcertCards() : 
+              key === 'basic' ? basicConcertCards() : detailConcertCards()}
           </Row>
         </Col>
         <Col xs={12} sm={12} md={12} lg={4}>
@@ -91,12 +98,14 @@ const UserConcerts = (props) => {
 const mapStateToProps = (state) => {
   return {
     loggedIn: state.currentUser.isAuthenticated,
+    user: state.currentUser.user,
     userConcerts: state.userConcerts.userConcerts,
     isLoading: state.userConcerts.isLoading,
     isPulled: state.userConcerts.isPulled,
     detailPulled: state.userConcerts.detailPulled,
-    concertsDetailed: state.userConcerts.concertsDetailed
+    concertsDetailed: state.userConcerts.concertsDetailed,
+    concertDeleted: state.userConcerts.concertDeleted
   }
 }
 
-export default connect(mapStateToProps, { logoutUser, getConcertDetailed })(UserConcerts);
+export default connect(mapStateToProps, { logoutUser, getConcertDetailed, deleteUserConcert })(UserConcerts);

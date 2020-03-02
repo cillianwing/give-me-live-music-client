@@ -8,6 +8,9 @@ export const CONCERT_DETAILED_REQUEST = 'CONCERT_DETAILED_REQUEST'
 export const CONCERT_DETAILED_SUCCESS = 'CONCERT_DETAILED_SUCCESS'
 export const CONCERT_DETAILED_FAILURE = 'CONCERT_DETAILED_FAILURE'
 export const DETAIL_PULLED = 'DETAIL_PULLED'
+export const CONCERT_DELETE_REQUEST = 'CONCERT_DELETE_REQUEST'
+export const CONCERT_DELETE_SUCCESS = 'CONCERT_DELETE_SUCCESS'
+export const CONCERT_DELETE_FAILURE = 'CONCERT_DELETE_FAILURE'
 
 const requestNewConcert = (credentials) => {
   return {
@@ -73,6 +76,27 @@ const concertDetailedError = (message) => {
 const setDetailPulled = () => {
   return {
     type: DETAIL_PULLED
+  }
+}
+
+const requestConcertDelete = () => {
+  return {
+    type: CONCERT_DETAILED_REQUEST
+  }
+}
+
+const receiveConcertDelete = (concert, message) => {
+  return {
+    type: CONCERT_DELETE_SUCCESS,
+    concert,
+    message
+  }
+}
+
+export const concertDeleteError = (message) => {
+  return {
+    type: CONCERT_DELETE_FAILURE,
+    message
   }
 }
 
@@ -183,4 +207,36 @@ export const getConcertDetailed = (concerts) => {
       }
       dispatch(setDetailPulled())
     }
+}
+
+export const deleteUserConcert = (concert, user) => {
+
+  const config = {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    },
+    body: JSON.stringify({concert: concert[0]})
+  }
+
+  return dispatch => {
+    dispatch(requestConcertDelete())
+    return fetch(`http://localhost:3000/api/v1/users/${user.id}/concerts/${concert[0].id}`, config)
+    .then(res => {
+      if (!res.ok) {
+        throw res
+      }
+      return res.json()
+    })
+    .then(data => {
+      if (data.success) {
+        dispatch(receiveConcertDelete(concert, data.success))
+      } else {
+        dispatch(concertDeleteError(data.failure))
+      }
+    }).catch(err => console.log("Error: ", err))
+  }
+
 }

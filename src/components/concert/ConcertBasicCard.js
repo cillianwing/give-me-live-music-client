@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Col, Card, Row, Button } from 'react-bootstrap'
-import BasicButton from '../input/BasicButton'
+import BasicButton from '../input/BasicButton';
 
 const ConcertBasicCard = (props) => {
+
   const params = {
     apiId: props.concert.id,
     url: props.concert.uri,
@@ -12,10 +13,6 @@ const ConcertBasicCard = (props) => {
     time: props.concert.start.time,
     venueName: props.concert.venue.displayName,
     location: props.concert.location.city
-  }
-
-  const handleDelete = (event, concert) => {
-    event.preventDefault()
   }
 
   return (
@@ -38,7 +35,7 @@ const ConcertBasicCard = (props) => {
               <Button block href={params.url} target="_blank" size="sm" variant="primary">Info</Button>
             </Col>
             <Col className="my-1" sm={12} md={12} lg={6}>
-              <BasicButton block="block" size="sm" variant="secondary" handleClick={event => handleDelete(event, params.apiId)} value="Delete" />
+              <BasicButton block="block" size="sm" variant="secondary" handleClick={props.handleDelete} value="Delete" />
             </Col>
           </Row>
         </Card.Footer>

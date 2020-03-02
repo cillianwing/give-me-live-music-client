@@ -3,17 +3,15 @@
 ## UserConcerts (container)
 
 ### Child Components / Properties
-- CardDeck/Cards of Concerts for all user's upcoming concerts
-  - Tabs to either show detailed summary (1 or 2 cards per column with all event details) OR basic summary (3 or 4 cards per column with general info)
-  - Modal for additional details popout (basic summary tab only)
+- **complete** * CardDeck/Cards of Concerts for all user's upcoming concerts
+  - **complete** * Tabs to either show detailed summary (1 or 2 cards per column with all event details) OR basic summary (3 or 4 cards per column with general info)
 - Delete/Cancel Button
-- Possibly a column on the side to show related concerts user may be interested in? Or potentially spotify playlists relevant to bands user will be seeing?
+- *later* *Possibly a column on the side to show related concerts user may be interested in? Or potentially spotify playlists relevant to bands user will be seeing?
 
 ## NextConcert (component)
 
 ### Child Components / Properties
-- Need to add sorting to detail concerts array so that it truly shows the "next concert"
-- Still needs venue details on left portion of column
+- Needs delete functionality
 
 ## UserProfile
 
@@ -23,8 +21,3 @@
 
 ### Child Components / Properties
 - I want to add the ability to search for an artist name to see their upcoming dates.
-
-## Calendar (component)
-
-### Child Components / PresentiaPropertiestion
-- Large calendar showing user's upcoming concerts for the next month or two

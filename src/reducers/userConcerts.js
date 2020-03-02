@@ -7,7 +7,10 @@ import { NEW_CONCERT_REQUEST,
   CONCERT_DETAILED_REQUEST,
   CONCERT_DETAILED_SUCCESS,
   CONCERT_DETAILED_FAILURE,
-  DETAIL_PULLED } from '../actions/userConcerts'
+  DETAIL_PULLED,
+  CONCERT_DELETE_REQUEST,
+  CONCERT_DELETE_SUCCESS,
+  CONCERT_DELETE_FAILURE } from '../actions/userConcerts'
 
 const initialState = {
   isLoading: false,
@@ -83,6 +86,25 @@ export const userConcerts = (state = initialState, action) => {
       return {
         ...state,
         detailPulled: true
+      }
+    case CONCERT_DELETE_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        concertDeleted: false
+      }
+    case CONCERT_DELETE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        userConcerts: state.userConcerts.filter(concert => concert.id !== action.concert.id),
+        concertsDetailed: state.concertsDetailed.filter(concert => concert.id !== action.concert.api_id),
+        concertDeleted: true
+      }
+    case CONCERT_DELETE_FAILURE:
+      return {
+        ...state,
+        errorMessage: action.message
       }
     default: 
       return state
