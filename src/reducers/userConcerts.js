@@ -70,7 +70,7 @@ export const userConcerts = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        concertsDetailed: [...state.concertsDetailed, action.concert.results.event]
+        concertsDetailed: [...state.concertsDetailed, action.concert.results.event].sort((a, b) => new Date(a.start.date) - new Date(b.start.date)).map(concert => concert)
       }
     case CONCERT_DETAILED_FAILURE:
 
