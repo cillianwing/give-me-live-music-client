@@ -244,6 +244,7 @@ export const deleteUserConcert = (concert, user) => {
         dispatch(concertDeleteError(data.failure))
       }
     }).catch(err => console.log("Error: ", err))
+    dispatch(deleteComplete())
   }
 
 }

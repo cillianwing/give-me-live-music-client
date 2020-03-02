@@ -4,7 +4,8 @@ const Input = (props) => {
   return (
     <>
       <label htmlFor={props.name}>{props.title}</label>
-      <input
+      {props.required ? 
+        <input
         className={props.className}
         id={props.name}
         name={props.name}
@@ -13,7 +14,19 @@ const Input = (props) => {
         onClick={props.handleClick}
         onChange={props.handleChange}
         placeholder={props.placeholder} 
-      />
+        required
+        /> : 
+        <input
+        className={props.className}
+        id={props.name}
+        name={props.name}
+        type={props.type}
+        value={props.value}
+        onClick={props.handleClick}
+        onChange={props.handleChange}
+        placeholder={props.placeholder} 
+        />}
+
     </>
   )
 }

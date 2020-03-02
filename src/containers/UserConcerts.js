@@ -6,7 +6,6 @@ import ConcertBasicCard from '../components/concert/ConcertBasicCard';
 import ConcertDetailCard from '../components/concert/ConcertDetailCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { logoutUser } from '../actions/currentUser';
-import { deleteComplete } from '../actions/userConcerts';
 import { getConcertDetailed } from '../actions/userConcerts';
 import { deleteUserConcert } from '.././actions/userConcerts';
 import { Container, Col, CardDeck, Card, Row, Nav } from 'react-bootstrap';
@@ -107,4 +106,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { logoutUser, getConcertDetailed, deleteUserConcert, deleteComplete })(UserConcerts);
+export default connect(mapStateToProps, { logoutUser, getConcertDetailed, deleteUserConcert })(UserConcerts);
