@@ -10,12 +10,14 @@ import { NEW_CONCERT_REQUEST,
   DETAIL_PULLED,
   CONCERT_DELETE_REQUEST,
   CONCERT_DELETE_SUCCESS,
-  CONCERT_DELETE_FAILURE } from '../actions/userConcerts'
+  CONCERT_DELETE_FAILURE,
+  DELETE_COMPLETE } from '../actions/userConcerts'
 
 const initialState = {
   isLoading: false,
   isPulled: false,
   detailPulled: false,
+  concertDeleted: false,
   userConcerts: [],
   concertsDetailed: []
 }
@@ -105,6 +107,11 @@ export const userConcerts = (state = initialState, action) => {
       return {
         ...state,
         errorMessage: action.message
+      }
+    case DELETE_COMPLETE: 
+      return {
+        ...state,
+        concertDeleted: false
       }
     default: 
       return state

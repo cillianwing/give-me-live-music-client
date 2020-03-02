@@ -85,6 +85,14 @@ const UpcomingConcerts = (props) => {
       </ButtonGroup>
     </ButtonToolbar>
     {concertCards}
+    <ButtonToolbar className="justify-content-center">
+      <ButtonGroup>
+        {props.page > 1 ? <BasicButton size="sm" handleClick={handlePreviousClick} variant="primary" value="Previous" /> : props.page === 1 && props.isPulled ? <BasicButton size="sm" disabled="disabled" variant="primary" value="Previous" /> : ''}
+      </ButtonGroup>
+      <ButtonGroup>
+        {props.pages > props.page ? <BasicButton size="sm" handleClick={handleNextClick} variant="primary" value="Next" /> : props.page >= props.pages && props.pages !== null ? <BasicButton size="sm" variant="primary" value="Next" disabled="disabled" /> : ''}
+      </ButtonGroup>
+    </ButtonToolbar>
     </>
   )
 }

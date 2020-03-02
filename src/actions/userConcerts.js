@@ -11,6 +11,7 @@ export const DETAIL_PULLED = 'DETAIL_PULLED'
 export const CONCERT_DELETE_REQUEST = 'CONCERT_DELETE_REQUEST'
 export const CONCERT_DELETE_SUCCESS = 'CONCERT_DELETE_SUCCESS'
 export const CONCERT_DELETE_FAILURE = 'CONCERT_DELETE_FAILURE'
+export const DELETE_COMPLETE = 'DELETE_COMPLETE'
 
 const requestNewConcert = (credentials) => {
   return {
@@ -93,10 +94,16 @@ const receiveConcertDelete = (concert, message) => {
   }
 }
 
-export const concertDeleteError = (message) => {
+const concertDeleteError = (message) => {
   return {
     type: CONCERT_DELETE_FAILURE,
     message
+  }
+}
+
+export const deleteComplete = () => {
+  return {
+    type: DELETE_COMPLETE
   }
 }
 

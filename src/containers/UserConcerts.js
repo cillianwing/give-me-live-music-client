@@ -6,6 +6,7 @@ import ConcertBasicCard from '../components/concert/ConcertBasicCard';
 import ConcertDetailCard from '../components/concert/ConcertDetailCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { logoutUser } from '../actions/currentUser';
+import { deleteComplete } from '../actions/userConcerts';
 import { getConcertDetailed } from '../actions/userConcerts';
 import { deleteUserConcert } from '.././actions/userConcerts';
 import { Container, Col, CardDeck, Card, Row, Nav } from 'react-bootstrap';
@@ -46,7 +47,7 @@ const UserConcerts = (props) => {
   return (
     <Container>
       <TopNav loggedIn={props.loggedIn} handleLogout={handleLogout} />
-      <LoadingSpinner show={props.isLoading} />
+      <LoadingSpinner show={props.isLoading && props.isPulled && props.detailPulled} />
       <Row className="my-3">
       {props.detailPulled && props.concertsDetailed.length > 0 && props.userConcerts.length === props.concertsDetailed.length ? <NextConcert handleDelete={event => handleDelete(event, findUserConcert(props.concertsDetailed[0]))} concert={props.concertsDetailed[0]} /> : <Col className="text-center mt-3"><h4>Loading next concert info...</h4></Col> }
       </Row>
@@ -68,8 +69,7 @@ const UserConcerts = (props) => {
             </Nav.Item>
           </Nav>
           <Row className="text-center mt-2">
-            {key === 'basic' && props.concertDeleted ? basicConcertCards() : 
-              key === 'basic' ? basicConcertCards() : detailConcertCards()}
+            {key === 'basic' ? basicConcertCards() : detailConcertCards()}
           </Row>
         </Col>
         <Col xs={12} sm={12} md={12} lg={4}>
@@ -103,9 +103,8 @@ const mapStateToProps = (state) => {
     isLoading: state.userConcerts.isLoading,
     isPulled: state.userConcerts.isPulled,
     detailPulled: state.userConcerts.detailPulled,
-    concertsDetailed: state.userConcerts.concertsDetailed,
-    concertDeleted: state.userConcerts.concertDeleted
+    concertsDetailed: state.userConcerts.concertsDetailed
   }
 }
 
-export default connect(mapStateToProps, { logoutUser, getConcertDetailed, deleteUserConcert })(UserConcerts);
+export default connect(mapStateToProps, { logoutUser, getConcertDetailed, deleteUserConcert, deleteComplete })(UserConcerts);
