@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import TopNav from '../components/nav/TopNav';
 import NextConcert from '../components/concert/NextConcert';
 import ConcertBasicCard from '../components/concert/ConcertBasicCard';
+import ConcertDetailCard from '../components/concert/ConcertDetailCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { logoutUser } from '../actions/currentUser';
 import { getConcertDetailed } from '../actions/userConcerts';
@@ -34,7 +35,12 @@ const UserConcerts = (props) => {
 
   const basicConcertCards = () => {
     let newArr = [].concat(sortedConcertsByDate()).slice(1)
-    return newArr.map(concert => <ConcertBasicCard concert={concert} />)
+    return newArr.map(concert => <ConcertBasicCard key={concert.id} concert={concert} />)
+  }
+
+  const detailConcertCards = () => {
+    let newArr = [].concat(sortedConcertsByDate()).slice(1)
+    return newArr.map(concert => <ConcertDetailCard key={concert.id} concert={concert} />)
   }
 
   return (
@@ -54,15 +60,15 @@ const UserConcerts = (props) => {
             activeKey={key}
             onSelect={k => handleSelect(k)}
           >
-            <Nav.Item className="text-center" style={{ width: "30%" }}>
-              <Nav.Link eventKey="basic">Basic View</Nav.Link>
+            <Nav.Item className="text-center" style={{ width: "50%" }}>
+              <Nav.Link eventKey="basic">Basic Info</Nav.Link>
             </Nav.Item>
-            <Nav.Item className="text-center" style={{ width: "30%" }}>
-              <Nav.Link eventKey="detailed">Detailed View</Nav.Link>
+            <Nav.Item className="text-center" style={{ width: "50%" }}>
+              <Nav.Link eventKey="detailed">Detailed Info</Nav.Link>
             </Nav.Item>
           </Nav>
           <Row className="text-center mt-2">
-            {key === 'basic' ? basicConcertCards() : ''}
+            {key === 'basic' ? basicConcertCards() : detailConcertCards()}
           </Row>
         </Col>
         <Col xs={12} sm={12} md={12} lg={4}>
