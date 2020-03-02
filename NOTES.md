@@ -1,13 +1,7 @@
-# Containers/Components Still Needed
+### Needs to be completed before turning in:
 
-## UserConcerts (container)
-
-### Child Components / Properties
-- **complete** * CardDeck/Cards of Concerts for all user's upcoming concerts
-  - **complete** * Tabs to either show detailed summary (1 or 2 cards per column with all event details) OR basic summary (3 or 4 cards per column with general info)
-- Delete/Cancel Button
-- *later* *Possibly a column on the side to show related concerts user may be interested in? Or potentially spotify playlists relevant to bands user will be seeing?
-
-## UserProfile
-
-### Child Components / Properties
+- Re-render issue when a concert is deleted from the user's database
+- Error messages where applicable
+- Properly update user's profile
+- Validations where applicable (cannot have multiple concerts on the same day)
+- Make sure all routing is done properly and possibly update to more RESTful conventions
