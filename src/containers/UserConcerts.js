@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import TopNav from '../components/nav/TopNav';
 import NextConcert from '../components/concert/NextConcert';
+import ConcertBasicCard from '../components/concert/ConcertBasicCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { logoutUser } from '../actions/currentUser';
 import { getConcertDetailed } from '../actions/userConcerts';
@@ -31,6 +32,11 @@ const UserConcerts = (props) => {
     return newArr
   }
 
+  const basicConcertCards = () => {
+    let newArr = [].concat(sortedConcertsByDate()).slice(1)
+    return newArr.map(concert => <ConcertBasicCard concert={concert} />)
+  }
+
   return (
     <Container>
       <TopNav loggedIn={props.loggedIn} handleLogout={handleLogout} />
@@ -55,60 +61,9 @@ const UserConcerts = (props) => {
               <Nav.Link eventKey="detailed">Detailed View</Nav.Link>
             </Nav.Item>
           </Nav>
-          <CardDeck className="my-2">
-            <Card>
-              <Card.Body>
-                <Card.Title>Left Column Card 1</Card.Title>
-                <Card.Text>
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </Card.Text>
-              </Card.Body>
-              <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
-              </Card.Footer>
-            </Card>
-            <Card>
-              <Card.Body>
-                <Card.Title>Left Column Card 2</Card.Title>
-                <Card.Text>
-                  This card has supporting text below as a natural lead-in to
-                  additional content.{" "}
-                </Card.Text>
-              </Card.Body>
-              <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
-              </Card.Footer>
-            </Card>
-          </CardDeck>
-          <CardDeck className="my-2">
-            <Card>
-              <Card.Body>
-                <Card.Title>Left Column Card 3</Card.Title>
-                <Card.Text>
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </Card.Text>
-              </Card.Body>
-              <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
-              </Card.Footer>
-            </Card>
-            <Card>
-              <Card.Body>
-                <Card.Title>Left Column Card 4</Card.Title>
-                <Card.Text>
-                  This card has supporting text below as a natural lead-in to
-                  additional content.{" "}
-                </Card.Text>
-              </Card.Body>
-              <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
-              </Card.Footer>
-            </Card>
-          </CardDeck>
+          <Row className="text-center mt-2">
+            {key === 'basic' ? basicConcertCards() : ''}
+          </Row>
         </Col>
         <Col xs={12} sm={12} md={12} lg={4}>
           <h3 className="text-center mt-2">Playlists/Something</h3>

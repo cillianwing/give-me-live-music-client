@@ -4,6 +4,7 @@ import BasicButton from '../input/BasicButton'
 
 const NextConcert = (props) => {
   const params = {
+    apiId: props.concert.id,
     url: props.concert.uri,
     eventType: props.concert.type,
     displayName: props.concert.displayName,
@@ -24,7 +25,7 @@ const NextConcert = (props) => {
     venuePhone: props.concert.venue.phone
   }
 
-  const handleClick = (event) => {
+  const handleDelete = (event, concert) => {
     event.preventDefault()
     // call to backend to delete the concert from user's concerts
   }
@@ -59,10 +60,7 @@ const NextConcert = (props) => {
                 <strong>{params.venueDescription ? params.venueDescription : ''}</strong>
               </Card.Text>
               <Card.Text>
-                {params.street ? `${params.street} - ` : ''}{params.location}{params.venuePhone ? ` | Phone: ${params.venuePhone}` : ''}
-              </Card.Text>
-              <Card.Text>
-                {params.venuePhone ? `Phone: ${params.venuePhone}` : ''}
+                {params.street ? `${params.street} - ` : ''}{params.location}<br />{params.venuePhone ? `Phone: ${params.venuePhone}` : ''}
               </Card.Text>
               <Card.Text className="mb-0">
                 {params.ageRestriction && params.venueCapacity ? 
@@ -79,7 +77,7 @@ const NextConcert = (props) => {
               <Button block href={params.url} target="_blank" size="sm" variant="primary">Concert Link</Button>
             </Col>
             <Col className="my-1" sm={{span: 12, order: 3}} md={{span: 12, order: 3}} lg={{span: 4, order: 2}}>
-              <BasicButton block="block" size="sm" variant="secondary" handleClick={handleClick} value="Delete Concert" />
+              <BasicButton block="block" size="sm" variant="secondary" handleClick={event => handleDelete(event, params.apiId)} value="Delete Concert" />
             </Col>
             <Col className="my-1" sm={{span: 12, order: 2}} md={{span: 12, order: 2}} lg={{span: 4, order: 3}}>
               <Button block href={params.venueUrl} target="_blank" size="sm" variant="success">Venue Link</Button> 
