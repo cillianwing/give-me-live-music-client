@@ -25,12 +25,18 @@ const UserConcerts = (props) => {
     setKey(k)
   }
 
+  const sortedConcertsByDate = () => {
+    let newArr = [].concat(props.concertsDetailed)
+    newArr.sort((a, b) => new Date(a.start.date) - new Date(b.start.date)).map(concert => concert)
+    return newArr
+  }
+
   return (
     <Container>
       <TopNav loggedIn={props.loggedIn} handleLogout={handleLogout} />
       <LoadingSpinner show={modalShow} />
       <Row className="my-3">
-      {props.detailPulled && props.concertsDetailed.length > 0 ? <NextConcert concert={props.concertsDetailed[0]} /> : '' }
+      {props.detailPulled && props.concertsDetailed.length > 0 && props.userConcerts.length === props.concertsDetailed.length ? <NextConcert concert={sortedConcertsByDate()[0]} /> : <Col className="text-center"><h4>Loading next concert info...</h4></Col> }
       </Row>
       <Row>
         <Col xs={12} sm={12} md={12} lg={8}>

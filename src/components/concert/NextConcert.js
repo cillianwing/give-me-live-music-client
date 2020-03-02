@@ -46,10 +46,10 @@ const NextConcert = (props) => {
                 {params.date ? `${params.eventType} starts on ${params.date.toLocaleDateString()}` : ''}{params.time ? ` @ ${params.time}` : ''}
                 {params.eventType === 'Festival' ? ` and ends on ${params.endDate.toLocaleDateString()}` : ''}{params.endTime ? ` @ ${params.endTime}` : ''}
               </Card.Text>
-              <Card.Text>
+              <Card.Text className="mb-0">
                 Popularity: {Math.round((params.popularity * 1000)*2)/2} / 10
-                {params.popularity ? <ProgressBar className="mx-auto" style={{width: "50%"}} now={params.popularity * 10000} variant="success" /> : ''}
               </Card.Text>
+              {params.popularity ? <ProgressBar className="mx-auto" style={{width: "50%"}} now={params.popularity * 10000} variant="success" /> : ''}
             </Card.Body>
           </Col>
           <Col className="text-center" xs={12} sm={12} md={12} lg={6}>
@@ -62,7 +62,7 @@ const NextConcert = (props) => {
                 {params.street ? `${params.street} - ` : ''}{params.location}{params.venuePhone ? ` | Phone: ${params.venuePhone}` : ''}
               </Card.Text>
               <Card.Text>
-                {params.venuePhone ? ` | Phone: ${params.venuePhone}` : ''}
+                {params.venuePhone ? `Phone: ${params.venuePhone}` : ''}
               </Card.Text>
               <Card.Text className="mb-0">
                 {params.ageRestriction && params.venueCapacity ? 
