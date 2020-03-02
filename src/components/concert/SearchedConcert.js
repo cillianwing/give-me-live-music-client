@@ -29,7 +29,7 @@ const Concert = (props) => {
             <Col xs={12} md={9}>
               <Card.Title>{props.display}</Card.Title>
               <Card.Text className="mb-1">
-                <strong>Venue: </strong>{props.venueName} in {props.location} | <strong>Date: </strong>{props.date} @ {props.time}
+                <strong>Venue: </strong>{props.venueName} in {props.location} | <strong>Date: </strong>{props.date}{props.time ? ` @ ${props.time}` : ''}
               </Card.Text>
             </Col>
             <Col xs={12} md={3}>

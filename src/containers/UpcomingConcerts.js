@@ -6,7 +6,7 @@ import { logoutUser } from '../actions/currentUser';
 import { CardDeck, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
 import LoadingSpinner from '../components/LoadingSpinner';
 import BasicButton from '../components/input/BasicButton';
-import Concert from '../components/concert/Concert';
+import SearchedConcert from '../components/concert/SearchedConcert';
 import TopNav from '../components/nav/TopNav';
 
 const UpcomingConcerts = (props) => {
@@ -53,7 +53,7 @@ const UpcomingConcerts = (props) => {
   }
 
   const concertCards = props.concerts.map(concert => (
-      <Concert key={concert.id}
+      <SearchedConcert key={concert.id}
         eventType={concert.type}
         display={concert.displayName} 
         date={concert.start.date} 
