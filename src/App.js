@@ -6,6 +6,7 @@ import Signup from './components/Signup'
 import Home from './components/Home'
 import UpcomingConcerts from './containers/UpcomingConcerts'
 import UserConcerts from './containers/UserConcerts'
+import UserProfile from './containers/UserProfile'
 import { getCurrentUser, logoutUser } from './actions/currentUser'
 import { Container } from 'react-bootstrap'
 
@@ -26,7 +27,7 @@ function App(props) {
             <Route exact path='/' component={Home} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={Signup} />
-            {/* <Route path='/user/profile' component={UserProfile} /> */}
+            <Route exact path='/user/profile' component={UserProfile} />
             <Route exact path='/user/concerts' component={UserConcerts} />
             <Route exact path='/concerts/upcoming' component={UpcomingConcerts} />
             {/* <Route path='/venues' component={Venues} /> */}
@@ -41,6 +42,7 @@ function App(props) {
 const mapStateToProps = (state) => {
   return {
     loggedIn: state.currentUser.isAuthenticated,
+    user: state.currentUser.user
   }
 }
 
