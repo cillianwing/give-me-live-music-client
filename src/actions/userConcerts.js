@@ -114,6 +114,7 @@ export const newConcert = (credentials, user) => {
     .then(data => {
       if (data.success) {
         dispatch(receiveNewConcert(data.concert))
+        dispatch(getConcertDetailed([data.concert]))
       } else {
         dispatch(newConcertError(data.failure))
       }
