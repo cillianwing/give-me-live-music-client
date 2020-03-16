@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import {  resetProfileForm } from '../actions/authForm'
 import { getCurrentUser, updateUser } from '../actions/currentUser'
 import ProfileView from '../components/ProfileView'
 import ProfileEdit from '../components/ProfileEdit'
@@ -60,8 +59,7 @@ const UserProfile = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.currentUser.user,
-    profileFormData: state.profileForm
+    currentUser: state.currentUser.user
   }
 }
 
