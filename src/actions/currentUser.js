@@ -152,6 +152,7 @@ export const signupUser = (credentials) => {
 export const updateUser = (credentials, user) => {
 	const params = {
 		id: user.id,
+		password: user.password_digest,
 		...credentials
 	}
 

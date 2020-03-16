@@ -16,7 +16,6 @@ const initialSignupState = {
 }
 
 const initialProfileState = {
-  password: '',
   first_name: '',
   last_name: '',
   location: '',

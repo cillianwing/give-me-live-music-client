@@ -27,6 +27,7 @@ const UserProfile = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault()
     props.updateUser(props.profileFormData, props.currentUser)
+    setEditProfile(false)
   }  
 
   const handleEditClick = (event) => {
