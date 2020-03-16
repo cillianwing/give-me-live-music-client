@@ -101,7 +101,7 @@ const concertDeleteError = (message) => {
   }
 }
 
-export const deleteComplete = () => {
+const deleteComplete = () => {
   return {
     type: DELETE_COMPLETE
   }
@@ -240,11 +240,11 @@ export const deleteUserConcert = (concert, user) => {
     .then(data => {
       if (data.success) {
         dispatch(receiveConcertDelete(concert, data.success))
+        dispatch(getUserConcerts(user))
       } else {
         dispatch(concertDeleteError(data.failure))
       }
     }).catch(err => console.log("Error: ", err))
-    dispatch(deleteComplete())
   }
 
 }

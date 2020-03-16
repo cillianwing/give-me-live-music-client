@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 import TopNav from '../components/nav/TopNav';
 import NextConcert from '../components/concert/NextConcert';
 import ConcertBasicCard from '../components/concert/ConcertBasicCard';
 import ConcertDetailCard from '../components/concert/ConcertDetailCard';
+import './userConcerts.css';
 import { logoutUser } from '../actions/currentUser';
 import { getConcertDetailed } from '../actions/userConcerts';
 import { deleteUserConcert } from '.././actions/userConcerts';
@@ -25,9 +27,9 @@ const UserConcerts = (props) => {
   const basicConcertCards = () => {
     if (props.detailPulled && props.concertsDetailed.length > 0 && props.userConcerts.length === props.concertsDetailed.length) {
       const upcoming = props.concertsDetailed.slice(1)
-      return upcoming.map(concert => <ConcertBasicCard handleDelete={event => handleDelete(event, findUserConcert(concert))} key={concert.id} concert={concert} />)
-    } else if (props.detailPulled && props.userConcerts.length === props.concertsDetailed.length && props.concertDetailed.length === 0) {
-      return <Col className="text-center mt-3"><h4>No upcoming concerts - search and add more now!</h4></Col>
+      return upcoming.length > 0 ? 
+        upcoming.map(concert => <ConcertBasicCard handleDelete={event => handleDelete(event, findUserConcert(concert))} key={concert.id} concert={concert} />) :
+        <Col className="text-center mt-3"><h4>No upcoming concerts - <Link to='/concerts/upcoming'>search</Link> and add more now!</h4></Col>
     } else {
       return ''
     }
@@ -36,9 +38,9 @@ const UserConcerts = (props) => {
   const detailConcertCards = () => {
     if (props.detailPulled && props.concertsDetailed.length > 0 && props.userConcerts.length === props.concertsDetailed.length) {
       const upcoming = props.concertsDetailed.slice(1)
-      return upcoming.map(concert => <ConcertDetailCard handleDelete={event => handleDelete(event, findUserConcert(concert))} key={concert.id} concert={concert} />)
-    } else if (props.detailPulled && props.userConcerts.length === props.concertsDetailed.length && props.concertDetailed.length === 0) {
-      return <Col className="text-center mt-3"><h4>No upcoming concerts - search and add more now!</h4></Col>
+      return upcoming.length > 0 ? 
+      upcoming.map(concert => <ConcertDetailCard handleDelete={event => handleDelete(event, findUserConcert(concert))} key={concert.id} concert={concert} />) : 
+        <Col className="text-center mt-3"><h4>No upcoming concerts - <Link to='/concerts/upcoming'>search</Link> and add more now!</h4></Col>
     } else {
       return ''
     }
@@ -72,16 +74,16 @@ const UserConcerts = (props) => {
         <Col xs={12} sm={12} md={12} lg={8}>
           <h3 className="text-center mt-2">User's Concerts Info</h3>
           <Nav
-            className="justify-content-center"
+            className="justify-content-center nav-pills"
             variant="pills"
             defaultActiveKey="basic"
             activeKey={key}
             onSelect={k => handleSelect(k)}
           >
-            <Nav.Item className="text-center" style={{ width: "50%" }}>
+            <Nav.Item className="text-center mr-1 nav-pill">
               <Nav.Link eventKey="basic">Basic Info</Nav.Link>
             </Nav.Item>
-            <Nav.Item className="text-center" style={{ width: "50%" }}>
+            <Nav.Item className="text-center ml-1 nav-pill">
               <Nav.Link eventKey="detailed">Detailed Info</Nav.Link>
             </Nav.Item>
           </Nav>
@@ -123,7 +125,8 @@ const mapStateToProps = (state) => {
     isLoading: state.userConcerts.isLoading,
     isPulled: state.userConcerts.isPulled,
     detailPulled: state.userConcerts.detailPulled,
-    concertsDetailed: state.userConcerts.concertsDetailed
+    concertsDetailed: state.userConcerts.concertsDetailed,
+    concertDeleted: state.userConcerts.concertDeleted
   }
 }
 

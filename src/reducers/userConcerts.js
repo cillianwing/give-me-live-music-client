@@ -10,14 +10,12 @@ import { NEW_CONCERT_REQUEST,
   DETAIL_PULLED,
   CONCERT_DELETE_REQUEST,
   CONCERT_DELETE_SUCCESS,
-  CONCERT_DELETE_FAILURE,
-  DELETE_COMPLETE } from '../actions/userConcerts'
+  CONCERT_DELETE_FAILURE } from '../actions/userConcerts'
 
 const initialState = {
   isLoading: false,
   isPulled: false,
   detailPulled: false,
-  concertDeleted: false,
   userConcerts: [],
   concertsDetailed: []
 }
@@ -92,8 +90,7 @@ export const userConcerts = (state = initialState, action) => {
     case CONCERT_DELETE_REQUEST:
       return {
         ...state,
-        isLoading: true,
-        concertDeleted: false
+        isLoading: true
       }
     case CONCERT_DELETE_SUCCESS:
       return {
@@ -101,17 +98,11 @@ export const userConcerts = (state = initialState, action) => {
         isLoading: false,
         userConcerts: state.userConcerts.filter(concert => concert.id !== action.concert.id),
         concertsDetailed: state.concertsDetailed.filter(concert => concert.id !== action.concert.api_id),
-        concertDeleted: true
       }
     case CONCERT_DELETE_FAILURE:
       return {
         ...state,
         errorMessage: action.message
-      }
-    case DELETE_COMPLETE: 
-      return {
-        ...state,
-        concertDeleted: false
       }
     default: 
       return state

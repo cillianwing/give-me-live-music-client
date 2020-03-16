@@ -76,7 +76,7 @@ const UpcomingConcerts = (props) => {
     <>
     <TopNav loggedIn={props.loggedIn} handleLogout={handleLogout} />
     <SearchForm />
-    <LoadingSpinner show={modalShow} />
+    <LoadingSpinner show={modalShow} text="Loading concerts...please wait!" />
     <ButtonToolbar className="justify-content-center">
       <ButtonGroup>
         {props.page > 1 ? <BasicButton size="sm" handleClick={handlePreviousClick} variant="primary" value="Previous" /> : props.page === 1 && props.isPulled ? <BasicButton size="sm" disabled="disabled" variant="primary" value="Previous" /> : ''}
