@@ -4,11 +4,10 @@ import TopNav from '../components/nav/TopNav';
 import NextConcert from '../components/concert/NextConcert';
 import ConcertBasicCard from '../components/concert/ConcertBasicCard';
 import ConcertDetailCard from '../components/concert/ConcertDetailCard';
-import LoadingSpinner from '../components/LoadingSpinner';
 import { logoutUser } from '../actions/currentUser';
 import { getConcertDetailed } from '../actions/userConcerts';
 import { deleteUserConcert } from '.././actions/userConcerts';
-import { Container, Col, CardDeck, Card, Row, Nav } from 'react-bootstrap';
+import { Container, Col, CardDeck, Card, Row, Nav, Spinner } from 'react-bootstrap';
 
 const UserConcerts = (props) => {
   const [key, setKey] = useState('basic')
@@ -24,13 +23,25 @@ const UserConcerts = (props) => {
   }
 
   const basicConcertCards = () => {
-    const upcoming = props.concertsDetailed.slice(1)
-    return upcoming.map(concert => <ConcertBasicCard handleDelete={event => handleDelete(event, findUserConcert(concert))} key={concert.id} concert={concert} />)
+    if (props.detailPulled && props.concertsDetailed.length > 0 && props.userConcerts.length === props.concertsDetailed.length) {
+      const upcoming = props.concertsDetailed.slice(1)
+      return upcoming.map(concert => <ConcertBasicCard handleDelete={event => handleDelete(event, findUserConcert(concert))} key={concert.id} concert={concert} />)
+    } else if (props.detailPulled && props.userConcerts.length === props.concertsDetailed.length && props.concertDetailed.length === 0) {
+      return <Col className="text-center mt-3"><h4>No upcoming concerts - search and add more now!</h4></Col>
+    } else {
+      return ''
+    }
   }
 
   const detailConcertCards = () => {
-    const upcoming = props.concertsDetailed.slice(1)
-    return upcoming.map(concert => <ConcertDetailCard handleDelete={event => handleDelete(event, findUserConcert(concert))} key={concert.id} concert={concert} />)
+    if (props.detailPulled && props.concertsDetailed.length > 0 && props.userConcerts.length === props.concertsDetailed.length) {
+      const upcoming = props.concertsDetailed.slice(1)
+      return upcoming.map(concert => <ConcertDetailCard handleDelete={event => handleDelete(event, findUserConcert(concert))} key={concert.id} concert={concert} />)
+    } else if (props.detailPulled && props.userConcerts.length === props.concertsDetailed.length && props.concertDetailed.length === 0) {
+      return <Col className="text-center mt-3"><h4>No upcoming concerts - search and add more now!</h4></Col>
+    } else {
+      return ''
+    }
   }
 
   const handleDelete = (event, concert) => {
@@ -43,12 +54,19 @@ const UserConcerts = (props) => {
     return userConcert
   }
 
+  const nextConcert = () => {
+    return props.detailPulled && props.concertsDetailed.length > 0 && props.userConcerts.length === props.concertsDetailed.length ? 
+      <NextConcert handleDelete={event => handleDelete(event, findUserConcert(props.concertsDetailed[0]))} concert={props.concertsDetailed[0]} /> : 
+      props.detailPulled && props.userConcerts.length === props.concertsDetailed.length && props.concertDetailed.length === 0 ?
+      <Col className="text-center mt-3"><h4>You do not have any concert upcoming!</h4></Col> : 
+      ''
+  }
+
   return (
     <Container>
       <TopNav loggedIn={props.loggedIn} handleLogout={handleLogout} />
-      <LoadingSpinner show={props.isLoading || !props.detailPulled || !props.isPulled} />
       <Row className="my-3">
-      {props.detailPulled && props.concertsDetailed.length > 0 && props.userConcerts.length === props.concertsDetailed.length ? <NextConcert handleDelete={event => handleDelete(event, findUserConcert(props.concertsDetailed[0]))} concert={props.concertsDetailed[0]} /> : <Col className="text-center mt-3"><h4>Loading next concert info...</h4></Col> }
+      {nextConcert() ? nextConcert() : <Col className="text-center mt-3"><h5>Next Upcoming Event</h5><h4><Spinner animation="grow" variant="info" /></h4></Col> }
       </Row>
       <Row>
         <Col xs={12} sm={12} md={12} lg={8}>
@@ -68,7 +86,10 @@ const UserConcerts = (props) => {
             </Nav.Item>
           </Nav>
           <Row className="text-center mt-2">
-            {key === 'basic' ? basicConcertCards() : detailConcertCards()}
+            {key === 'basic' && basicConcertCards() ? basicConcertCards() : 
+              key === 'basic' && !basicConcertCards() ? <Col className="text-center mt-3"><h5>Loading...<Spinner animation="grow" variant="info" /></h5></Col> :
+              key === 'detailed' && detailConcertCards() ? detailConcertCards() : 
+              <Col className="text-center mt-3"><h5>Loading...<Spinner animation="grow" variant="info" /></h5></Col> }
           </Row>
         </Col>
         <Col xs={12} sm={12} md={12} lg={4}>
