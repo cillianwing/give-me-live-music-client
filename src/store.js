@@ -12,7 +12,6 @@ const reducer = combineReducers({
   currentUser,
   loginForm,
   signupForm,
-  profileForm,
   searchForm,
   search,
   userConcerts

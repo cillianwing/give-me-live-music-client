@@ -66,6 +66,7 @@ const ProfileEdit = (props) => {
                 label="First Name"
                 autoFocus
                 onChange={event => props.handleInputChange(event)}
+                required
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -78,6 +79,7 @@ const ProfileEdit = (props) => {
                 name="last_name"
                 autoComplete="lname"
                 onChange={props.handleInputChange}
+                required
               />
             </Grid>
             <Grid item xs={12}>
@@ -90,6 +92,7 @@ const ProfileEdit = (props) => {
                 name="location"
                 autoComplete="location"
                 onChange={props.handleInputChange}
+                required
               />
             </Grid>
             <Grid item xs={12}>
@@ -115,17 +118,17 @@ const ProfileEdit = (props) => {
             className={classes.submit}
           >
             Update Profile
-          </Button>
-          <Button
-            onClick={props.handleCancel}
-            type="submit"
-            fullWidth
-            variant="contained"
-            className={classes.submit}
-          >
-            Cancel
-          </Button>          
+          </Button>       
         </form>
+        <Button
+          onClick={props.handleCancel}
+          type="button"
+          fullWidth
+          variant="contained"
+          className={classes.submit}
+        >
+          Cancel
+        </Button>
       </div>
     </Container>
   )  

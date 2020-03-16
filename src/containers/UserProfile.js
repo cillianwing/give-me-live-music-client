@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom';
-import { updateProfileForm } from '../actions/authForm'
+import {  resetProfileForm } from '../actions/authForm'
 import { getCurrentUser, updateUser } from '../actions/currentUser'
 import ProfileView from '../components/ProfileView'
 import ProfileEdit from '../components/ProfileEdit'
 
 const UserProfile = (props) => {
   const [editProfile, setEditProfile] = useState(false)
+  const [profileInfo, setProfileInfo] = useState('')
 
   useEffect(() => {
     if (!props.currentUser) {
@@ -18,32 +18,42 @@ const UserProfile = (props) => {
   const handleInputChange = (event) => {
     const { name, value } = event.target
     const updatedFormInfo = {
-      ...props.profileFormData,
+      ...profileInfo,
       [name]: value
     }
-    props.updateProfileForm(updatedFormInfo)
+    setProfileInfo(updatedFormInfo)
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    props.updateUser(props.profileFormData, props.currentUser)
+    props.updateUser(profileInfo, props.currentUser)
     setEditProfile(false)
   }  
 
   const handleEditClick = (event) => {
     event.preventDefault()
+    setProfileInfo({
+      first_name: props.currentUser.first_name,
+      last_name: props.currentUser.last_name,
+      location: props.currentUser.location,
+      about: props.currentUser.about})
     setEditProfile(true)
   }
 
   const handleCancel = (event) => {
     event.preventDefault()
+    setProfileInfo({
+      first_name: props.currentUser.first_name,
+      last_name: props.currentUser.last_name,
+      location: props.currentUser.location,
+      about: props.currentUser.about})
     setEditProfile(false)
   }
 
   return(
     <>
     { props.currentUser && !editProfile ? <ProfileView handleEditClick={handleEditClick} user={props.currentUser} /> : 
-      props.currentUser && editProfile ? <ProfileEdit user={props.currentUser} profileFormData={props.profileFormData} handleSubmit={handleSubmit} handleInputChange={handleInputChange} handleCancel={handleCancel} /> : '' }
+      props.currentUser && editProfile ? <ProfileEdit user={props.currentUser} profileFormData={profileInfo} handleSubmit={handleSubmit} handleInputChange={handleInputChange} handleCancel={handleCancel} /> : '' }
     </>
   )
 }
@@ -55,4 +65,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { getCurrentUser, updateProfileForm, updateUser })(UserProfile);
+export default connect(mapStateToProps, { getCurrentUser, updateUser })(UserProfile);
