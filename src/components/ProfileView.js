@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
-// import { updateSignupForm } from '../actions/authForm'
-import { getCurrentUser } from '../actions/currentUser'
 import { Alert } from 'react-bootstrap';
 import { MDBIcon } from 'mdbreact';
 import Avatar from '@material-ui/core/Avatar';
@@ -10,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -31,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(1, 0, 0)
   },
 }));
 
