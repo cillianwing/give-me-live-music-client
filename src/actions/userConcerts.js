@@ -11,7 +11,7 @@ export const DETAIL_PULLED = 'DETAIL_PULLED'
 export const CONCERT_DELETE_REQUEST = 'CONCERT_DELETE_REQUEST'
 export const CONCERT_DELETE_SUCCESS = 'CONCERT_DELETE_SUCCESS'
 export const CONCERT_DELETE_FAILURE = 'CONCERT_DELETE_FAILURE'
-export const DELETE_COMPLETE = 'DELETE_COMPLETE'
+export const CLEAR_DETAILED_CONCERTS = 'CLEAR_DETAILED_CONCERTS'
 
 const requestNewConcert = (credentials) => {
   return {
@@ -101,9 +101,9 @@ const concertDeleteError = (message) => {
   }
 }
 
-const deleteComplete = () => {
+const clearDetailedConcerts = () => {
   return {
-    type: DELETE_COMPLETE
+    type: CLEAR_DETAILED_CONCERTS
   }
 }
 
@@ -176,6 +176,7 @@ export const getUserConcerts = (user) => {
     .then(data => {
       if (data.success) {
         dispatch(receiveAllConcerts(data.concerts))
+        dispatch(clearDetailedConcerts())
         dispatch(getConcertDetailed(data.concerts))
       } else {
         dispatch(allConcertsError(data.failure))
