@@ -17,7 +17,9 @@ const Concert = (props) => {
   }
 
   const checkConcerts = () => {
-    return props.concertIds.includes(props.apiId) ? 
+    return props.status === 'cancelled' ? 
+      <BasicButton disabled="disabled" size="sm" className="mb-1" block="block" variant="danger" value="Cancelled!" /> : 
+      props.concertIds.includes(props.apiId) ? 
       <BasicButton disabled="disabled" size="sm" className="mb-1" block="block" variant="warning" value="Already going!" /> : 
       <BasicButton handleClick={event => handleGoingClick(event, props)} size="sm" className="mb-1" block="block" variant="success" value="Going!" />
   }

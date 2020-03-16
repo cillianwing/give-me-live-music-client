@@ -46,7 +46,7 @@ const UserConcerts = (props) => {
   return (
     <Container>
       <TopNav loggedIn={props.loggedIn} handleLogout={handleLogout} />
-      <LoadingSpinner show={props.isLoading && props.isPulled && props.detailPulled} />
+      <LoadingSpinner show={props.isLoading || !props.detailPulled || !props.isPulled} />
       <Row className="my-3">
       {props.detailPulled && props.concertsDetailed.length > 0 && props.userConcerts.length === props.concertsDetailed.length ? <NextConcert handleDelete={event => handleDelete(event, findUserConcert(props.concertsDetailed[0]))} concert={props.concertsDetailed[0]} /> : <Col className="text-center mt-3"><h4>Loading next concert info...</h4></Col> }
       </Row>
