@@ -13,7 +13,7 @@ const TopNav = (props) => {
   return (
     <MDBNavbar color="default-color" dark expand="md">
     <MDBNavbarBrand>
-      <strong className="white-text"><MDBIcon fab icon="connectdevelop" /> Music Time! <MDBIcon fab icon="connectdevelop" /></strong>
+      <strong className="white-text"><MDBIcon fab icon="connectdevelop" /> Sound Check! <MDBIcon fab icon="connectdevelop" /></strong>
     </MDBNavbarBrand>
     <MDBNavbarToggler onClick={toggleCollapse} />
     <MDBCollapse id="navbarCollapse3" isOpen={open} navbar>
