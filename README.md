@@ -1,4 +1,24 @@
+# Sound Check
+
+## Concert finding app built with React frontend connected to a Rails API backend.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+Link to [Rails API backend](https://github.com/cillianwing/give-me-live-music-backend) github repo.
+
+## App Capabilities
+
+### This app utilizes data from Songkick API to provide the user with upcoming concerts for the desired location. User is provided detailed information for each returned concert (artists, venue, etc.). From here, the user is able to add concerts they are attending/interested in attending to their calendar. They can view concerts they have added to better keep track of what is coming up. 
+
+**Eventual Additions**: 
+- User will be able to "follow" certain venues, allowing them to easily view the concerts coming up at their favorite venues.
+- Links to various playlists (utilizing Spotify API) that are relevant to artists the user will be seeing at upcoming concerts on their calendar.
+
+## To Get Started
+
+1. Clone repo for backend API.
+2. Once cloned, run `rails s` to fire up the server.
+3. Run `npm start` to start frontend server. It will ask if the user is fine with opening [http://localhost:3001](http://localhost:3001) due to the backend already running on port 3000. Type 'Y' and press enter.
 
 ## Available Scripts
 
