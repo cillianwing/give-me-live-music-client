@@ -109,6 +109,7 @@ export const loginUser = (credentials) => {
 			if (data.success) {
 				localStorage.setItem("token", data.jwt)
 				dispatch(setCurrentUser(data.user))
+				dispatch(getUserConcerts(data.user))
 				dispatch(resetLoginForm())
 			} else {
 				dispatch(resetLoginForm())
@@ -139,6 +140,7 @@ export const signupUser = (credentials) => {
 			if (data.success) {
 				localStorage.setItem("token", data.jwt)
 				dispatch(setCurrentUser(data.user))
+				dispatch(getUserConcerts(data.user))
 				dispatch(resetSignupForm())
 			} else {
 				dispatch(resetSignupForm())
