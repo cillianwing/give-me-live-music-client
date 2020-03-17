@@ -94,20 +94,18 @@ const UserConcerts = (props) => {
               <Col className="text-center mt-3"><h5>Loading...<Spinner animation="grow" variant="info" /></h5></Col> }
           </Row>
         </Col>
-        <Col xs={12} sm={12} md={12} lg={4}>
-          <h3 className="text-center mt-2">Playlists/Something</h3>
+        <Col xs={12} sm={12} md={12} lg={4} className="playlist-container">
+          <h3 className="text-center mt-2">Playlists*</h3>
           <CardDeck className="my-2">
-            <Card>
-              <Card.Body>
-                <Card.Title>Right Column Card</Card.Title>
+            <Card className="text-center">
+              <Card.Body className="playlist">
+                <Card.Title>Upcoming Concert Playlists</Card.Title>
                 <Card.Text>
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
+                  This section will link to spotify playlists associated with the artists you will be seeing in upcoming concerts!
                 </Card.Text>
               </Card.Body>
               <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
+                <small className="text-muted">* Under development (check in 05/2020!)</small>
               </Card.Footer>
             </Card>
           </CardDeck>

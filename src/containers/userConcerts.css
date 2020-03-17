@@ -7,3 +7,12 @@
 .nav-pills .nav-pill {
   width: 45%;
 }
+
+.playlist-container.col-lg-4 {
+  padding-right: 0px;
+  border-left: 1px dashed #29af9d;
+}
+
+.playlist {
+  background-color: rgb(250, 250, 118);
+}
