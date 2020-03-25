@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import SearchForm from './SearchForm';
 import { getConcerts } from '../actions/search';
 import { logoutUser } from '../actions/currentUser';
-import { CardDeck, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
+import { CardDeck, ButtonToolbar, ButtonGroup, Dropdown } from 'react-bootstrap';
 import LoadingSpinner from '../components/LoadingSpinner';
 import BasicButton from '../components/input/BasicButton';
 import SearchedConcert from '../components/concert/SearchedConcert';
@@ -11,6 +11,7 @@ import TopNav from '../components/nav/TopNav';
 
 const UpcomingConcerts = (props) => {
   const [modalShow, setModalShow] = useState(false)
+  const [sortType, setSortType] = useState('default')
 
   useEffect(() => {
     return props.isLoading ? setModalShow(true) : setModalShow(false)
@@ -52,7 +53,40 @@ const UpcomingConcerts = (props) => {
     return concert.location.city.split(', ')[1]
   }
 
-  const concertCards = props.concerts.map(concert => (
+  const sortedByVenueCards = () => {
+    const unsortedConcerts = [...props.concerts]
+    const sortedByVenue = unsortedConcerts.sort((a, b) => {
+      const venueA = a.venue.displayName.toUpperCase()
+      const venueB = b.venue.displayName.toUpperCase()
+      return venueA < venueB ? -1 : venueA > venueB ? 1 : 0
+    })
+    return sortedByVenue
+  }
+
+  const sortedByDisplayCards = () => {
+    const unsortedConcerts = [...props.concerts]
+    const sortedByDisplay = unsortedConcerts.sort((a, b) => {
+      const displayA = a.displayName.toUpperCase()
+      const displayB = b.displayName.toUpperCase()
+      return displayA < displayB ? -1 : displayA > displayB ? 1 : 0
+    })
+    return sortedByDisplay
+  }
+
+  const concertCards = () => {
+    let sortedArray = []
+    if (sortType === 'default') {
+      sortedArray = props.concerts
+    } else if (sortType === 'display') {
+      sortedArray = sortedByDisplayCards()
+    } else if (sortType === 'venue') {
+      sortedArray = sortedByVenueCards()
+    }
+
+    console.log(sortedArray)
+    console.log(sortType)
+
+    return sortedArray.map(concert =>
       <SearchedConcert key={concert.id}
         eventType={concert.type}
         display={concert.displayName} 
@@ -69,14 +103,27 @@ const UpcomingConcerts = (props) => {
         apiId={concert.id}
         status={concert.status}
         />
-      )
     )
+
+  }
+  
+
 
   return (
     <>
     <TopNav loggedIn={props.loggedIn} handleLogout={handleLogout} />
     <SearchForm />
     <LoadingSpinner show={modalShow} text="Loading concerts...please wait!" />
+    <Dropdown>
+      <Dropdown.Toggle variant="success" id="dropdown-basic">
+        Sort By
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        <Dropdown.Item onClick={() => setSortType("display")}>Display Name</Dropdown.Item>
+        <Dropdown.Item onClick={() => setSortType("venue")}>Venue Name</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
     <ButtonToolbar className="justify-content-center">
       <ButtonGroup>
         {props.page > 1 ? <BasicButton size="sm" handleClick={handlePreviousClick} variant="primary" value="Previous" /> : props.page === 1 && props.isPulled ? <BasicButton size="sm" disabled="disabled" variant="primary" value="Previous" /> : ''}
@@ -85,7 +132,7 @@ const UpcomingConcerts = (props) => {
         {props.pages > props.page ? <BasicButton size="sm" handleClick={handleNextClick} variant="primary" value="Next" /> : props.page >= props.pages && props.pages !== null ? <BasicButton size="sm" variant="primary" value="Next" disabled="disabled" /> : ''}
       </ButtonGroup>
     </ButtonToolbar>
-    {concertCards}
+    {props.concerts.length !== 0 ? concertCards() : '' }
     <ButtonToolbar className="justify-content-center">
       <ButtonGroup>
         {props.page > 1 ? <BasicButton size="sm" handleClick={handlePreviousClick} variant="primary" value="Previous" /> : props.page === 1 && props.isPulled ? <BasicButton size="sm" disabled="disabled" variant="primary" value="Previous" /> : ''}
@@ -106,7 +153,7 @@ const mapStateToProps = (state) => {
     isPulled: state.search.isPulled,
     page: state.search.page,
     pages: state.search.pages,
-    concerts: state.search.concerts
+    concerts: state.search.concerts // naming probably needs updating
   }
 }
 

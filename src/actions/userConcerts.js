@@ -13,10 +13,9 @@ export const CONCERT_DELETE_SUCCESS = 'CONCERT_DELETE_SUCCESS'
 export const CONCERT_DELETE_FAILURE = 'CONCERT_DELETE_FAILURE'
 export const CLEAR_DETAILED_CONCERTS = 'CLEAR_DETAILED_CONCERTS'
 
-const requestNewConcert = (credentials) => {
+const requestNewConcert = () => {
   return {
     type: NEW_CONCERT_REQUEST,
-    credentials
   }
 }
 
@@ -132,17 +131,14 @@ export const newConcert = (credentials, user) => {
     },
     body: JSON.stringify({concert: concertData})
   }
-
+  console.log('b')
   return dispatch => {
+    console.log('c')
     dispatch(requestNewConcert(credentials))
     return fetch(`http://localhost:3000/api/v1/users/${user.id}/concerts`, config)
-    .then(res => {
-      if (!res.ok) {
-        throw res
-      }
-      return res.json()
-    })
+    .then(res => res.json())
     .then(data => {
+      console.log('d')
       if (data.success) {
         dispatch(receiveNewConcert(data.concert))
         dispatch(getConcertDetailed([data.concert]))
@@ -151,6 +147,7 @@ export const newConcert = (credentials, user) => {
       }
     }).catch(err => console.log("Error: ", err))
   }
+  console.log('e')
 }
 
 export const getUserConcerts = (user) => {

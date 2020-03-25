@@ -9,11 +9,14 @@ const Concert = (props) => {
 
   const handleGoingClick = (event, params) => {
     event.preventDefault()
+    console.log('a')
     props.newConcert(params, props.user)
+    console.log('f')
   }
   
   const handleInfoClick = (event, props) => {
     event.preventDefault()
+    // need to add actual action to handle click here
   }
 
   const checkConcerts = () => {
